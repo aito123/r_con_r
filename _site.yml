@@ -1,0 +1,16 @@
+name: "r_con_r"
+title: "R con R"
+description: |
+  Capacitación en R
+output_dir: "_site"
+navbar:
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "About"
+      href: about.html
+    - text: "Sesiones"
+      menu:
+        - text: "Conectar RStudio con Github"
+          href: cosas_de_r.html
+output: distill::distill_article
