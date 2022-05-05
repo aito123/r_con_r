@@ -4,6 +4,7 @@ description: |
   En este artículo veremos como poder controlar nuestro Github desde RStudio.
 author:
   - name: Santiago Sotelo 
+    url: https://santiagosotelo.netlify.app/
     affiliation: Q-LAB PUCP
     affiliation_url: https://qlab.pucp.edu.pe/
 date: "`r Sys.Date()`"
