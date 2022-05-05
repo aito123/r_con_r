@@ -1,7 +1,7 @@
 ---
-title: "About this site"
+title: "Acerca del sitio"
 description: |
-  Some additional details about the website
+  Aprende R de manera eficiente
 ---
 
 ```{r setup, include=FALSE}

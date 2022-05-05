@@ -1,7 +1,7 @@
 ---
-title: "My Website"
+title: "Aprende R"
 description: |
-  Welcome to the website. I hope you enjoy it!
+  Capacitación en R para practicantes del Q-LAB
 site: distill::distill_website
 ---
 

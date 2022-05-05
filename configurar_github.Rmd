@@ -1,11 +1,14 @@
 ---
 title: "Configuración de Git y Github con RStudio"
-author: "Santiago Sotelo"
+description: |
+  En este artículo veremos como poder controlar nuestro Github desde RStudio.
+author:
+  - name: Santiago Sotelo 
+    affiliation: Q-LAB PUCP
+    affiliation_url: https://qlab.pucp.edu.pe/
 date: "`r Sys.Date()`"
-output: 
-  html_document:
-    toc: true
-    theme: yeti
+output: distill::distill_article
+
 ---
 
 ```{r setup, include=FALSE}

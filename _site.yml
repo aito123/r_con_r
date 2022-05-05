@@ -12,5 +12,5 @@ navbar:
     - text: "Sesiones"
       menu:
         - text: "Conectar RStudio con Github"
-          href: cosas_de_r.html
+          href: configurar_github.html
 output: distill::distill_article
