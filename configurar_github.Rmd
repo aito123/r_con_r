@@ -1,20 +1,29 @@
 ---
 title: "Configuración de Git y Github con RStudio"
 description: |
-  En este artículo veremos como poder controlar nuestro Github desde RStudio.
+  En este artículo veremos cómo poder controlar nuestro Github desde RStudio.
 author:
   - name: Santiago Sotelo 
     url: https://santiagosotelo.netlify.app/
+    orcid_id: 0000-0002-9739-9964
     affiliation: Q-LAB PUCP
     affiliation_url: https://qlab.pucp.edu.pe/
 date: "`r Sys.Date()`"
-output: distill::distill_article
+output: 
+  distill::distill_article:
+    toc: true
+    toc_depth: 2
 
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,eval = FALSE)
 ```
+
+```{r, include=FALSE, preview=TRUE}
+knitr::include_graphics("figuras/git_y_github.png")
+```
+
 
 En esta sesión explicaré como configurar Git y Github con RStudio para poder trabajar de manera colaborativa y con un control de versiones.
 
