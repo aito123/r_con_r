@@ -1,14 +1,9 @@
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 # R con R
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-Este repositorio de Github tiene como objetivo capacitar al personal de
-Q-LAB en las herramientas de R necesarias para cumplir las tareas
-asignadas en el laboratorio.
+Este repositorio de Github tiene como objetivo capacitar al personal de Q-LAB en las herramientas de R necesarias para cumplir las tareas asignadas en el laboratorio.
 
 ## Temario
 
@@ -36,5 +31,4 @@ asignadas en el laboratorio.
 
 ## Asignación
 
-María Pía ve avanzando: manipulación de datos con tidyverse, y gráficos.
-Yo iré viendo el resto. Por cada subtema un `.Rmd`.
+María Pía ve avanzando: instalación de programas, familiarización IDE, manipulación de datos con tidyverse, y gráficos. Yo iré viendo el resto. Por cada subtema un `.Rmd`.
