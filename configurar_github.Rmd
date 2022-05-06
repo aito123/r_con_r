@@ -20,7 +20,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE,eval = FALSE)
 ```
 
-```{r, include=FALSE, preview=TRUE}
+```{r, eval=TRUE, include=FALSE}
 knitr::include_graphics("figuras/git_y_github.png")
 ```
 
