@@ -17,4 +17,6 @@ navbar:
           href: configurar_github.html
         - text: "Aspectos básicos de R"
           href: basico_de_r.html
+        - text: "Manipulación con Tidyverse"
+          href: manipulacion_tidyverse.html
 output: distill::distill_article
