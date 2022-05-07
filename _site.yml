@@ -19,4 +19,6 @@ navbar:
           href: basico_de_r.html
         - text: "Manipulación con Tidyverse"
           href: manipulacion_tidyverse.html
+    - icon: fa-github
+      href: https://github.com/aito123/r_con_r
 output: distill::distill_article
