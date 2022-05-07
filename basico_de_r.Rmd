@@ -27,6 +27,47 @@ knitr::include_graphics("figuras/rstudio.jpg")
 
 En esta sesión explicaré algunos aspectos básicos de R.
 
+# Notas
+
+Videos muy básicos para ver antes del taller si es que no saben nada:
+https://www.youtube.com/watch?v=y7JPGlw6dJg (Script, R Markdown y R Notebook : Principales diferencias- 12min)
+https://www.youtube.com/watch?v=HpXiSLVyYrM&t=920s (¿Cómo se PROGRAMA EN R? 22 min)
+ Esta página de Youtube es de un Jp de la PUCP y explica muy bien temas de R y estadística https://www.youtube.com/channel/UCjsP5ejsSyUchRl2oA96J3A
+Formatear 
+as.numeric
+as.character
+as.factor
+as.integer
+as.logic
+Estilo base R (“muñeca rusa”) --> como se programa en R y la sintaxis
+Estilo pipeflow (maggittr)
+Tidy data
+clean names
+setwd / getwd
+
+**Temas:**
+
+panel de r
+
+objetos
+
+tipos de variable
+
+Estilo tradicional
+
+muñeca rusa
+
+Estilo moderno
+
+pipeflow maggitr
+
+tidy data
+
+tidy names
+
+setwd / getwd absoluto
+
+directorio relativo
 
 
 
