@@ -1,0 +1,43 @@
+---
+title: "Manipulación de data con Tidyverse"
+description: |
+  En esta sección vamos a aprender a manipular data con los paquetes de tidyverse.
+author:
+  - name: Maria Pia van Oordt
+    url: https://www.linkedin.com/in/maria-pia-van-oordt-van-oordt-l%C3%B3pez-9a17a6233/
+    affiliation: Q-LAB PUCP
+    affiliation_url: https://qlab.pucp.edu.pe/
+date: "`r Sys.Date()`"
+output: 
+  distill::distill_article:
+    toc: true
+    toc_depth: 2
+
+---
+
+**¿Que es Tidyverse?**
+Tidyverse es una colección de paquetes de R diseñanos para el Data Science.
+
+**¿Que es un paquete?**
+Un paquete es una coleccion de funciones y conjunto de datos desarrollados por la comunidad de R. Ayudan a mejroar la funcionalidad del programa, agilizar ciertas tareas y también agregan funciones nuevas
+
+**¿Como se instala?**
+Para instalar un paquete solo tienes que correr el siguiente comando con el nombre del paquete dentro del paréntesis entre comillas. 
+
+    **Recuenden**:Los comandos en R tienen que estar con los       espacios, comas, comillas, parentesis y puntos de una          cierta forma exacta, sino el comando no correra! Es    
+    recomendable     correr el comando en la consola porque 
+    solo se tiene que       descargar una vez por lo cual si 
+    dejas el comando en tu        script se volveria a correr.
+  
+```{r}
+install.packages("tidyverse")
+```
+
+Una vez instalado el paquete , abre la libreria con el siguiente comando. Esto se repite con todos los paquetes que quieras instalar y abrir. Puedes ya tener el paquete descargado pero si no lo abres con el comando `library` no podras utilizar las funciones.
+
+```{r}
+library(tidyverse)
+```
+
+
+
