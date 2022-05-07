@@ -13,6 +13,9 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```
 
+**Creado por:**
+Santiago Sotelo y Maria Pia van Oordt
+
 ```{r, eval=TRUE, echo=FALSE, out.width='120%', fig.align='center'}
 knitr::include_graphics("figuras/pucp.jfif")
 ```
