@@ -15,4 +15,6 @@ navbar:
           href: instalacion_programas.html
         - text: "Conectar RStudio con Github"
           href: configurar_github.html
+        - text: "Aspectos básicos de R"
+          href: basico_de_r.html
 output: distill::distill_article

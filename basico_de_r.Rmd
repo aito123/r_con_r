@@ -1,0 +1,33 @@
+---
+title: "Aspectos básicos de R"
+description: |
+  En este artículo aprenderemos los aspectos básicos de R.
+author:
+  - name: Santiago Sotelo 
+    url: https://santiagosotelo.netlify.app/
+    orcid_id: 0000-0002-9739-9964
+    affiliation: Q-LAB PUCP
+    affiliation_url: https://qlab.pucp.edu.pe/
+date: "`r Sys.Date()`"
+output: 
+  distill::distill_article:
+    toc: true
+    toc_depth: 2
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, eval=TRUE, echo=FALSE}
+knitr::include_graphics("figuras/rstudio.jpg")
+
+```
+
+En esta sesión explicaré algunos aspectos básicos de R.
+
+
+
+
+
