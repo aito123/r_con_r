@@ -40,7 +40,7 @@ En esta sesión explicaré como actualizar y/o instalar R-Studio (La plataforma)
 knitr::include_graphics("figuras/paso1.png")
 ```
 
-**Paso 3** : Haces click en "Install R fot the first time" si es la primera vez que bajas R, en "base" si ya haz descargado antes R y quieres la nueva versión. Una vez descargados regresaremos a esta pagina y haremos click en "R-tool"(Más adelante se especificaran los pasos.)
+**Paso 3** : Haces click en "Install R fot the first time" si es la primera vez que bajas R, en "base" si ya haz descargado antes R y quieres la nueva versión. Una vez descargados regresaremos a esta pagina y haremos click en "R-tools"(Más adelante se especificaran los pasos.)
 
 ```{r, eval=TRUE, echo=FALSE, out.width='100%', fig.align='center'}
 knitr::include_graphics("figuras/paso2.png")
@@ -49,7 +49,7 @@ knitr::include_graphics("figuras/paso2.png")
 
 ```{r, eval=TRUE, echo=FALSE, out.width='100%', fig.align='center'}
 
-knitr::include_graphics("figuras/paso2.png")
+knitr::include_graphics("figuras/paso3.png")
 ```
 **Paso 5** : Abres el programa instalado y pones aceptar en todo lo que salga seleccionado como predeterminado
 
