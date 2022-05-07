@@ -42,11 +42,13 @@ Para instalar un paquete solo tienes que correr el siguiente comando con el nomb
   
 `install.packages("tidyverse")`
 
+
 Una vez instalado el paquete , abre la libreria con el siguiente comando. Esto se repite con todos los paquetes que quieras instalar y abrir. Puedes ya tener el paquete descargado pero si no lo abres con el comando `library` no podras utilizar las funciones.
 
 ```{r}
 library(tidyverse)
 ```
+
 
 # Principales Funciones
 
