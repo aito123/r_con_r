@@ -1,0 +1,24 @@
+---
+title: "Aprende R"
+description: |
+  Capacitación en R para practicantes del Q-LAB
+site: distill::distill_website
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+# Learn more about creating websites with Distill at:
+# https://rstudio.github.io/distill/website.html
+
+```
+
+```{r, eval=TRUE, echo=FALSE, out.width='120%', fig.align='center'}
+knitr::include_graphics("figuras/pucp.jfif")
+```
+
+Esta capacitación esta destinada para los practicantes de Q-lab. Se espera que aprendan sobre la manipulación de data y adquieran herramientas útiles para la investigación académica y para los labores del laboratorio.
+
+```{r, eval=TRUE, echo=FALSE, out.width='120%', fig.align='center'}
+knitr::include_graphics("figuras/pucp.jfif")
+```
