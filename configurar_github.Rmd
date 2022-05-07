@@ -35,11 +35,17 @@ Para empezar nos dirigiremos al explorador de archivos o Mis documentos en tu co
 
 Bien. Ahora nos dirigimos a R y en la parte superior del RStudio y debajo de la palabra Edit verás una R +. 
 
-```{r, eval=TRUE, echo=FALSE}
+```{r, eval=TRUE, echo=FALSE, out.width='80%', fig.align='center'}
 knitr::include_graphics("figuras/boton_r_project.png")
 ```
 
-Le hacemos click a New Directory < New Project, ingresamos un nombre como "proyecto1", nos aeguramos que se está guardando en nuestra nueva carpeta "proyecto1" (browse), dejamos sin seleccionar las casillas debajo excepto la de "Open in New Session". Luego de esto creamos el proyecto y wuala.
+Le hacemos click a `New Directory < New Project`, ingresamos un nombre como "proyecto1", nos aeguramos que se está guardando en nuestra nueva carpeta "proyecto1" (browse), dejamos sin seleccionar las casillas debajo excepto la de "Open in New Session". 
+
+```{r, eval=TRUE, echo=FALSE, out.width='60%', fig.align='center'}
+knitr::include_graphics("figuras/r_project.png")
+```
+
+Luego de esto creamos el proyecto y wuala.
 
 ## Crearse un Github
 
@@ -47,7 +53,7 @@ Segundo, necesitamos una cuenta en [Github](https://github.com/), en esta págin
 
 ## Presentarse a Git
 
-Ahora, nos dirigimos a nuestro Rstudio y nos aseguramos de tener los paquetes necesarios para trabajar. Para correr un código, seleccionamos el código que queremos correr y apretamos `control` + `enter`:
+Ahora, nos dirigimos a nuestro Rstudio y nos aseguramos de tener los paquetes necesarios para trabajar. Para correr un código seleccionamos el código que queremos correr y apretamos `control` + `enter`:
 
 ```{r}
 if (!require("pacman")) install.packages("pacman")
@@ -72,6 +78,10 @@ usethis::use_git()
 
 Nos aparecerá un mensaje abajo en la consola indicando si queremos *commit* los cambios realizado. Es importante que ingresemos la opción **NO**. Las opciones están constantemente cambiando así que marque la opción que se refiere al no. Seguido a esto, nos aparecerá otra indicación diciendo si queremos reiniciar el R para crear la pestaña "Git". Recién en este caso marcamos la opción **SÍ** o un enunciado similar. Se reiniciará el R y si ha seguido estos pasos aparecerá la pestaña Git en la esquina superior derecha.
 
+```{r, eval=TRUE, echo=FALSE, out.width='80%', fig.align='center'}
+knitr::include_graphics("figuras/pestana_git.png")
+```
+
 ## Conectarse a Github
 
 Para conectarnos a Github necesitamos generar un Token que nos dé las facultades para poder manipular nuestro Github desde el RStudio para esto corremos la siguiente función:
@@ -85,6 +95,10 @@ usethis::create_github_token(
 
 Una vez corramos este comando se debería abrir una página en internet con nuestro Github abierto en la sección Tokens (Developer Settings). En la pestaña habrán varias casillas para marcar, de preferencia marcamos todas. Asimismo, en la caducidad del Token insertamos _No expiration_ y luego creamos el token en la parte de abajo.
 
+```{r, eval=TRUE, echo=FALSE, fig.align='center'}
+knitr::include_graphics("figuras/github_access_token.png")
+```
+
 A continuación, nos aparecerá un código largo el cual vamos a copiar. Seguido a esto, nos dirigimos al RStudio y corremos la siguiente función:
 
 ```{r}
@@ -92,26 +106,38 @@ usethis::edit_r_environ()
 
 ```
 
+```{r, eval=TRUE, echo=FALSE, out.width='30%', fig.align='center'}
+knitr::include_graphics("figuras/pestana_renviron.png")
+```
+
 Aparecerá un archivo en la pantalla llamado `.Renviron` y dentro de este vamos a ingresar el siguiente código en una línea vacía:
 
 `GITHUB_TOKEN="número largo de mi token"`
 
+```{r, eval=TRUE, echo=FALSE, out.width='80%', fig.align='center'}
+knitr::include_graphics("figuras/token_renviron.png")
+```
+
 Luego cerramos el archivo `.Renviron` y reiniciamos nuestro R yendo a Session < Restart R.
 
-Una vez reiniciado nuestro R nos dirigimos a la pestaña Git y seleccionamos los cambios realizados. Si te percatas en la esquina superior derecha de la pestaña Git debería salir `no branch`. Ahora apretamos el botón _commit_ en la parte superior. Se abrirá un panel con un espacio para insertar texto a la derecha. Ahí pondremos "Primer commit", luego clickeamos el botón commit en la parte de abajo. Saldrá una pestaña de carga y luego nos permitirá cerrar. Cerramos las pestañas y regresamos a nuestro script de R. Ahora en la esquina superior derecha de la pestaña Git debería salir `master` o `main`. Si aparece esto vas por buen camino y ya casi acabas.
+Una vez reiniciado nuestro R nos dirigimos a la pestaña Git y seleccionamos los cambios realizados. Si te percatas en la esquina superior derecha de la pestaña Git debería salir `no branch`. Ahora apretamos el botón _commit_ en la parte superior. Se abrirá un panel con un espacio para insertar texto a la derecha. Ahí pondremos "Primer commit", luego clickeamos el botón commit en la parte de abajo. Saldrá una pestaña de carga y luego nos permitirá cerrar. Cerramos las pestañas y regresamos a nuestro script de R. Ahora en la esquina superior derecha de la pestaña Git debería salir `master` o `main`. Si aparece esto en tu panel superior derecho vas por buen camino y ya casi acabas:
 
-A continuación corremos el siguiente comando.
+```{r, eval=TRUE, echo=FALSE, fig.align='center'}
+knitr::include_graphics("figuras/git_master.png")
+```
+
+A continuación corremos el siguiente comando:
 
 ```{r}
 usethis::use_github()
 
 ```
 
-Debería aparecer un cuadro de diálogo de Github en el que nos pida nuestro usuario, contraeña o código. Utilizamos la opción código y nos debería llevar a la pestaña de Chrome. Para corroborar que la conexión se ha establecido, regresamos a nuestro R y verificamos si la flecha verde en la pestaña Git se encuentra encedida. En caso lo esté, vas y le apretas click. Has realizado tu primer "Push". 
+Debería aparecer un cuadro de diálogo de Github en el que nos pida nuestro usuario, contraseña o código. Utilizamos la opción código y nos debería llevar a la pestaña de Chrome. Para corroborar que la conexión se ha establecido, regresamos a nuestro R y verificamos si la flecha verde en la pestaña Git se encuentra encendida. En caso lo esté, vas y le apretas click. Has realizado tu primer "Push". 
 
 Ahora hay una copia de tu proyecto actual ("proyecto1") en Github el cual puedes actualizar con Git y R.
 
-Cabe recalcar que este proceso se realiza una sola vez y no es necesario de repetir contninuamente cada vez que se quiere iniciar un proyecto.
+Cabe recalcar que este proceso se realiza una sola vez y no es necesario de repetir continuamente cada vez que se quiere iniciar un proyecto.
 
 # Tipos de interacción con Github
 
@@ -129,7 +155,17 @@ Lo que hemos hecho hasta ahora podríamos considerarlo como colaborar con uno mi
 
 Este tipo de interacción se caracteriza por colaborar con una o más personas como si todos fueran dueños del proyecto y puedan hacer cambios directos. Para esto, la persona que quiere iniciar el repositorio en Github debe seguir los pasos del "solo play" y subir su proyecto a Github. Una vez realizado esto, nos dirigimos a la web Github y en nuestro proyecto accedemos a la parte de _Settings_. Luego, en el apartado _Access_ clickeamos a _Collaborators_ y acá añadimos las cuentas con las que queremos colaborar directamente.
 
-Las personas que se quieren sumar a tu repositorio deben hacer lo siguiente. Se dirigen a su RStudio y luego apretan el botón R + debajo de Edit en la parte superior. En segundo lugar, siguen la ruta Version Control < Git y en la parte de repositorio URL ingresan el link web al repositorio Github ya creado. En tercer lugar, crean el proyecto en una sesión nueva.
+```{r, eval=TRUE, echo=FALSE, fig.align='center'}
+knitr::include_graphics("figuras/github_collaborators.png")
+```
+
+Las personas que se quieren sumar a tu repositorio deben hacer lo siguiente. Se dirigen a su RStudio y luego apretan el botón R + debajo de Edit en la parte superior. 
+
+```{r, eval=TRUE, echo=FALSE, out.width='80%', fig.align='center'}
+knitr::include_graphics("figuras/boton_r_project.png")
+```
+
+En segundo lugar, siguen la ruta `Version Control < Git` y en la parte de repositorio URL ingresan el link web al repositorio Github ya creado. En tercer lugar, crean el proyecto en una sesión nueva.
 
 Listo, ahora tienes acceso directo a un repositorio ya creado por un colega al cual puedes commitear y pushear.
 
@@ -147,7 +183,15 @@ En caso haya un usuario que quiera sugerir un cambio al Repositorio de Github cr
 
 - Una vez ubicado el Repositorio del dueño en Github, hacer click en el botón _Fork_ (fork creará un duplicado en tu Github del proyecto)
 
-- Luego de fork-earlo, dirigirse a RStudio y crear un nuevo proyecto con ruta Version Control < Git, y en el url insertar el url del duplicado en tu Github.
+```{r, eval=TRUE, echo=FALSE, out.width='80%', fig.align='center'}
+knitr::include_graphics("figuras/fork.png")
+```
+
+- Luego de fork-earlo, dirigirse a RStudio y crear un nuevo proyecto con ruta `Version Control < Git`, y en el url insertar el url del duplicado en tu Github.
+
+```{r, eval=TRUE, echo=FALSE, out.width='60%', fig.align='center'}
+knitr::include_graphics("figuras/version_control_git.png")
+```
 
 Listo, ahora tienes una copia del proyecto en tu RStudio. Supongamos que quieres realizar un cambio a un archivo. Luego de realizar dicho cambio commit y push. Ahora, nos dirigimos a Github en Chrome y en el repositorio duplicado en nuestra cuenta verá la opción para poder crear un _Pull Request_. Una vez mandado el pull request, el dueño del repositorio original decidirá aceptar o rechazar tu cambio.
 

@@ -2150,13 +2150,16 @@ documentos en tu computadora y creamos una carpeta llamada
 <p>Bien. Ahora nos dirigimos a R y en la parte superior del RStudio y
 debajo de la palabra Edit verás una R +.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="figuras/boton_r_project.png" width="244" /></p>
+<p><img src="figuras/boton_r_project.png" width="80%" style="display: block; margin: auto;" /></p>
 </div>
-<p>Le hacemos click a New Directory &lt; New Project, ingresamos un
-nombre como “proyecto1”, nos aeguramos que se está guardando en nuestra
-nueva carpeta “proyecto1” (browse), dejamos sin seleccionar las casillas
-debajo excepto la de “Open in New Session”. Luego de esto creamos el
-proyecto y wuala.</p>
+<p>Le hacemos click a <code>New Directory &lt; New Project</code>,
+ingresamos un nombre como “proyecto1”, nos aeguramos que se está
+guardando en nuestra nueva carpeta “proyecto1” (browse), dejamos sin
+seleccionar las casillas debajo excepto la de “Open in New Session”.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="figuras/r_project.png" width="60%" style="display: block; margin: auto;" /></p>
+</div>
+<p>Luego de esto creamos el proyecto y wuala.</p>
 <h2 id="crearse-un-github">Crearse un Github</h2>
 <p>Segundo, necesitamos una cuenta en <a
 href="https://github.com/">Github</a>, en esta página distintos
@@ -2166,7 +2169,7 @@ nuestro navegador (de preferencia Chrome) para poder sincronizarla con
 nuestro RStudio.</p>
 <h2 id="presentarse-a-git">Presentarse a Git</h2>
 <p>Ahora, nos dirigimos a nuestro Rstudio y nos aseguramos de tener los
-paquetes necesarios para trabajar. Para correr un código, seleccionamos
+paquetes necesarios para trabajar. Para correr un código seleccionamos
 el código que queremos correr y apretamos <code>control</code> +
 <code>enter</code>:</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2206,6 +2209,9 @@ la pestaña “Git”. Recién en este caso marcamos la opción
 <strong>SÍ</strong> o un enunciado similar. Se reiniciará el R y si ha
 seguido estos pasos aparecerá la pestaña Git en la esquina superior
 derecha.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="figuras/pestana_git.png" width="80%" style="display: block; margin: auto;" /></p>
+</div>
 <h2 id="conectarse-a-github">Conectarse a Github</h2>
 <p>Para conectarnos a Github necesitamos generar un Token que nos dé las
 facultades para poder manipular nuestro Github desde el RStudio para
@@ -2223,6 +2229,9 @@ con nuestro Github abierto en la sección Tokens (Developer Settings). En
 la pestaña habrán varias casillas para marcar, de preferencia marcamos
 todas. Asimismo, en la caducidad del Token insertamos <em>No
 expiration</em> y luego creamos el token en la parte de abajo.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="figuras/github_access_token.png" width="575" style="display: block; margin: auto;" /></p>
+</div>
 <p>A continuación, nos aparecerá un código largo el cual vamos a copiar.
 Seguido a esto, nos dirigimos al RStudio y corremos la siguiente
 función:</p>
@@ -2232,10 +2241,16 @@ función:</p>
 </code></pre>
 </div>
 </div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="figuras/pestana_renviron.png" width="30%" style="display: block; margin: auto;" /></p>
+</div>
 <p>Aparecerá un archivo en la pantalla llamado <code>.Renviron</code> y
 dentro de este vamos a ingresar el siguiente código en una línea
 vacía:</p>
 <p><code>GITHUB_TOKEN="número largo de mi token"</code></p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="figuras/token_renviron.png" width="80%" style="display: block; margin: auto;" /></p>
+</div>
 <p>Luego cerramos el archivo <code>.Renviron</code> y reiniciamos
 nuestro R yendo a Session &lt; Restart R.</p>
 <p>Una vez reiniciado nuestro R nos dirigimos a la pestaña Git y
@@ -2247,9 +2262,12 @@ un panel con un espacio para insertar texto a la derecha. Ahí pondremos
 Saldrá una pestaña de carga y luego nos permitirá cerrar. Cerramos las
 pestañas y regresamos a nuestro script de R. Ahora en la esquina
 superior derecha de la pestaña Git debería salir <code>master</code> o
-<code>main</code>. Si aparece esto vas por buen camino y ya casi
-acabas.</p>
-<p>A continuación corremos el siguiente comando.</p>
+<code>main</code>. Si aparece esto en tu panel superior derecho vas por
+buen camino y ya casi acabas:</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="figuras/git_master.png" width="518" style="display: block; margin: auto;" /></p>
+</div>
+<p>A continuación corremos el siguiente comando:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/use_github.html'>use_github</a></span><span class='op'>(</span><span class='op'>)</span>
@@ -2257,15 +2275,15 @@ acabas.</p>
 </div>
 </div>
 <p>Debería aparecer un cuadro de diálogo de Github en el que nos pida
-nuestro usuario, contraeña o código. Utilizamos la opción código y nos
+nuestro usuario, contraseña o código. Utilizamos la opción código y nos
 debería llevar a la pestaña de Chrome. Para corroborar que la conexión
 se ha establecido, regresamos a nuestro R y verificamos si la flecha
-verde en la pestaña Git se encuentra encedida. En caso lo esté, vas y le
-apretas click. Has realizado tu primer “Push”.</p>
+verde en la pestaña Git se encuentra encendida. En caso lo esté, vas y
+le apretas click. Has realizado tu primer “Push”.</p>
 <p>Ahora hay una copia de tu proyecto actual (“proyecto1”) en Github el
 cual puedes actualizar con Git y R.</p>
 <p>Cabe recalcar que este proceso se realiza una sola vez y no es
-necesario de repetir contninuamente cada vez que se quiere iniciar un
+necesario de repetir continuamente cada vez que se quiere iniciar un
 proyecto.</p>
 <h1 id="tipos-de-interacción-con-github">Tipos de interacción con
 Github</h1>
@@ -2288,12 +2306,19 @@ Github. Una vez realizado esto, nos dirigimos a la web Github y en
 nuestro proyecto accedemos a la parte de <em>Settings</em>. Luego, en el
 apartado <em>Access</em> clickeamos a <em>Collaborators</em> y acá
 añadimos las cuentas con las que queremos colaborar directamente.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="figuras/github_collaborators.png" width="648" style="display: block; margin: auto;" /></p>
+</div>
 <p>Las personas que se quieren sumar a tu repositorio deben hacer lo
 siguiente. Se dirigen a su RStudio y luego apretan el botón R + debajo
-de Edit en la parte superior. En segundo lugar, siguen la ruta Version
-Control &lt; Git y en la parte de repositorio URL ingresan el link web
-al repositorio Github ya creado. En tercer lugar, crean el proyecto en
-una sesión nueva.</p>
+de Edit en la parte superior.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="figuras/boton_r_project.png" width="80%" style="display: block; margin: auto;" /></p>
+</div>
+<p>En segundo lugar, siguen la ruta
+<code>Version Control &lt; Git</code> y en la parte de repositorio URL
+ingresan el link web al repositorio Github ya creado. En tercer lugar,
+crean el proyecto en una sesión nueva.</p>
 <p>Listo, ahora tienes acceso directo a un repositorio ya creado por un
 colega al cual puedes commitear y pushear.</p>
 <p>Cabe mencionar que la versión en tu computadora debe estar al día con
@@ -2320,10 +2345,18 @@ de Github creado por el dueño debe realizar lo siguiente.</p>
 <li><p>Una vez ubicado el Repositorio del dueño en Github, hacer click
 en el botón <em>Fork</em> (fork creará un duplicado en tu Github del
 proyecto)</p></li>
-<li><p>Luego de fork-earlo, dirigirse a RStudio y crear un nuevo
-proyecto con ruta Version Control &lt; Git, y en el url insertar el url
-del duplicado en tu Github.</p></li>
 </ul>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="figuras/fork.png" width="80%" style="display: block; margin: auto;" /></p>
+</div>
+<ul>
+<li>Luego de fork-earlo, dirigirse a RStudio y crear un nuevo proyecto
+con ruta <code>Version Control &lt; Git</code>, y en el url insertar el
+url del duplicado en tu Github.</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="figuras/version_control_git.png" width="60%" style="display: block; margin: auto;" /></p>
+</div>
 <p>Listo, ahora tienes una copia del proyecto en tu RStudio. Supongamos
 que quieres realizar un cambio a un archivo. Luego de realizar dicho
 cambio commit y push. Ahora, nos dirigimos a Github en Chrome y en el
