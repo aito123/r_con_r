@@ -50,5 +50,18 @@ library(tidyverse)
 ```
 
 
-# Principales Funciones
+# Principales paquetes
+
+**ggplot2**
+
+**dplyr**
+
+**tidyr**
+
+
+#Comandos Útiles
+
+haven
+readxl
+googledrive
 
