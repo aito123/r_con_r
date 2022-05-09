@@ -7,28 +7,16 @@ Este repositorio de Github tiene como objetivo capacitar al personal de Q-LAB en
 
 ## Temario
 
-### Primera parte
-
 1.  Instalación de programas
 
-2.  Familiarización con el IDE
+2.  Conectar Git y Github con RStudio
 
-3.  Configuración de Git y Github con RStudio
+3.  Aspectos básicos de R
 
-4.  Aspectos básicos del R
+4.  Manipulación de datos con tidyverse
 
-5.  Manipulación de datos con tidyverse
+5.  Tablas
 
-6.  Tablas
+6.  Gráficos
 
-7.  Gráficos
-
-8.  Mapas
-
-9.  Exportar reportes
-
-### Segunda parte (por confirmar)
-
-## Asignación
-
-María Pía ve avanzando: instalación de programas, familiarización IDE, manipulación de datos con tidyverse, y gráficos. Yo iré viendo el resto. Por cada subtema un `.Rmd`.
+7.  Exportar reportes

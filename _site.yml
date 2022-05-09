@@ -21,6 +21,8 @@ navbar:
           href: manipulacion_tidyverse.html
         - text: "Tablas en R"
           href: tablas.html
+        - text: "Exportar reportes"
+          href: reportes.html
     - icon: fa-github
       href: https://github.com/aito123/r_con_r
 output: distill::distill_article

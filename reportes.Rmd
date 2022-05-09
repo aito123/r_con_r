@@ -1,0 +1,53 @@
+---
+title: "Exportar reportes en R"
+description: |
+  En este artículo aprenderemos a exportar reportes en R en diferentes formatos como HTML, Word y pdf.
+author:
+  - name: Santiago Sotelo 
+    url: https://santiagosotelo.netlify.app/
+    orcid_id: 0000-0002-9739-9964
+    affiliation: Q-LAB PUCP
+    affiliation_url: https://qlab.pucp.edu.pe/
+date: "`r Sys.Date()`"
+output: 
+  distill::distill_article:
+    toc: true
+    toc_depth: 2
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
+```
+
+```{r, eval=TRUE, echo=FALSE, out.width="100%"}
+knitr::include_graphics("figuras/reportes.png")
+
+```
+
+En esta sesión explicaré como exportar reportes en R en formato `.html`, `.docx`, y `.pdf`.
+
+Para ello necesitaremos tener instalados y desplegados los siguientes paquetes:
+
+```{r}
+pacman::p_load(
+  #manipulación de data
+  tidyverse,
+  #importar exportar data
+  haven, rio,
+  #tablas
+  flextable, gtsummary,
+  #etiquetas
+  sjlabelled,
+  #exportar reportes
+  officer, officedown
+)
+
+```
+
+**Más recursos para aprender:**
+
+- [officedown](https://ardata-fr.github.io/officeverse/officedown-for-word.html)
+
+- [officer](https://davidgohel.github.io/officer/)
+
