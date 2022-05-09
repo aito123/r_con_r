@@ -8,3 +8,4 @@ description: |
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+En esta página podrás consultar algunos aspectos introductorios a la programación en R especialmente aplicado a las Ciencias Sociales.

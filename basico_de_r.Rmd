@@ -17,10 +17,10 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, fig.align = "center")
 ```
 
-```{r, eval=TRUE, echo=FALSE}
+```{r, eval=TRUE, echo=FALSE, out.width="100%"}
 knitr::include_graphics("figuras/rstudio.jpg")
 
 ```
@@ -171,28 +171,105 @@ base
 
 ## Estilo tradicional
 
-muñeca rusa (foto)
+```{r, eval=TRUE, echo=FALSE}
+knitr::include_graphics("figuras/muneca_rusa.jpeg")
+
+```
+
+En el estilo tradicional de programación en R, se aplican las funciones una dentro de otra como si fuera una "muñeca rusa". Por ejemplo, si quisiera tener una tabla de porcentajes de un vector:
+
+```{r}
+palabras<-c("arroz", "jamón", "queso", 4, 
+            "arroz", "jamón", "queso", 4, 
+            "arroz", "jamón", "queso", 4, 
+            "arroz", "jamón", "queso", 4)
+
+prop.table(table(palabras))*100
+```
+
+En el ejemplo anterior, vemos que primero ejecutamos la función `table`, luego `prop.table` que convierte los resultados en porcentajes decimales, lo que luego multiplicamos por 100.
 
 ## Estilo moderno
 
-Esto es una pipa (foto)
+```{r, eval=TRUE, echo=FALSE}
+knitr::include_graphics("figuras/tuberias.jpg")
 
-pipeflow
+```
 
-pipeta
+A diferencia del estilo tradicional de programar en R, actualmente existe una tendencia a utilizar el *pipe operator* introducido en el paquete `{magrittr}` que tiene este aspecto `%>%`. La pipeta nos permite conectar funciones de manera consecutiva antes que una dentro de otra. Por ejemplo, si quisieramos replicar la tabla de porcentajes anterior en estilo moderno sería de la siguiente manera:
 
-maggritr
+```{r}
+# Para utilizar el operador pipe hay que desplegar el paquete dplyr
+pacman::p_load(dplyr)
 
+palabras %>%
+  table() %>%
+  prop.table() * 100
+
+```
+
+Una manera de entender el flujo de trabajo de la pipeta es imaginar que le estamos diciendo al R: haz esto y luego esto, es decir ejecuta esta función u objeto y luego esta función sobre el mismo objeto creado. 
+
+Un atajo para introducir pipetas desde el teclado es apretando al mismo tiempo: `ctrl` + `shift` + `m`.
 
 # Preparación de data
 
-tidy data
+Una vez aprendido acerca de `dataframes` y pipetas podemos introducir las buenas prácticas al momento de trabajar con bases de datos.
 
-tidy names
+Es muy común recibir data en distintos formatos, muchos en los cuales nos cuesta trabajar y aplicar funciones. A partir de este problema surge el concepto *Tidy data* (data ordenada) que refiere a tener un caso por fila y una variable por columna.
+
+```{r, eval=TRUE, echo=FALSE, out.width="80%"}
+knitr::include_graphics("figuras/tidy_data.png")
+
+```
+
+Este concepto se encuentra en la base de los paquetes pertenecientes al `{tidyverse}` que brindan distintas herramientas de manipulación de la data para poder llegar a esta estructura *tidy data*.
+
+De igual manera, existe el concepto de *tidy names* cuando nos referimos al nombre de las variables. Muchas veces recibimos bases de datos con nombres de variables en un formato poco óptimo, por ejemplo:
+
+```{r}
+base1<-data.frame(
+  a=c("Juan", "Jesús", "John"),
+  b=c(15, 16, 17)
+)
+
+names(base1)<- c("Señor 1", "Edad cumplida")
+
+base1
+
+```
+
+En este caso, los nombres de las variables cuentan con espacios, caracteres especiales, mayúsculas, entre otros; lo cual dificulta la manipulación de las variables. Por ejemplo, si quisiera multiplicar la edad cumplida por 2 tendría que hacerlo de la siguiente manera:
+
+```{r}
+base1$`Edad cumplida`<-base1$`Edad cumplida` * 2
+
+base1
+```
+
+Para salvarnos de este problema se encuentra la función `clean_names()` dentro del paquete `{janitor}` el cual estandariza las nombres a un formato en el que podemos manipular las variables fácilmente y también un nombre que no generará problemas al exportarlo a formatos de data como `.sav` (SPSS), `.dta` (STATA), entre otros.
+
+```{r}
+base1 %>% 
+  janitor::clean_names()
+
+```
 
 # Manejar directorios de trabajo
 
-Directorio absoluto
+Al momento de importar y exportar nuestra data, es importante tener en cuenta a qué carpeta se están cargando los archivos. A esta carpeta la llamamos directorio de trabajo o *Working directory*. Para saber cuál es nuestro directory de trabajo por default ejecutamos la siguiente función:
 
-setwd / getwd absoluto
+```{r}
+getwd()
+```
+Si queremos cambiar nuestro directorio de trabajo a uno específico realizamos la siguiente función:
 
+```{r}
+setwd("C:/Users/Lenovo")
+getwd()
+```
+**Más recursos para aprender:**
+
+- [Messy data](https://tidyr.tidyverse.org/)
+
+- [Tidy data](https://tidyr.tidyverse.org/articles/tidy-data.html)
