@@ -17,7 +17,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, fig.align = "center")
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
 ```
 
 ```{r, eval=TRUE, echo=FALSE, out.width="100%"}
@@ -26,3 +26,170 @@ knitr::include_graphics("figuras/tablon.png")
 ```
 
 En esta sesión explicaré como realizar tablas o tabulaciones para publicaciones académicas ya sea en formato `.html` (web) o `.docx` (Word). Comencemos.
+
+Para ello necesitaremos tener instalados y desplegados los siguientes paquetes:
+
+```{r}
+pacman::p_load(
+  #manipulación de data
+  tidyverse,
+  #importar exportar data
+  haven, rio,
+  #tablas
+  flextable, gtsummary,
+  #etiquetas
+  sjlabelled
+)
+
+```
+
+Asimismo, utilizaremos la data de prueba alojada en el paquete `{sjlabelled}` denominada `efc` que es una muestra de la base de datos del proyecto EUROFAMCARE:
+
+```{r}
+data(efc)
+
+```
+
+Esta data tiene la particularidad de tener *variable label* y *value label* que es metadata acerca de la variable y sus categorías. Esta data tiene 26 variables y 908 observaciones.
+
+```{r}
+efc %>% 
+  names()
+
+```
+
+Si observamos la metadata de las cinco primeras variables veremos lo siguiente:
+
+```{r}
+efc %>%
+  select(1:5) %>%
+  sjPlot::view_df()
+  
+```
+
+En *name* se encuentra el nombre de la variable que aparece en la base de datos (ej: `efc$c12hour`), en *label* podemos observar la etiqueta de la variable que precisa una descripción de la variable (ej: `elder's gender`), en *values* observamos los valores que aparece en la base de datos (ej: `1`), y en *value labels* podemos observar la etiqueta de los valores que precisa una descripción de los valores (ej: `male`).
+
+De esta manera, si vemos un *preview* de la base de datos veremos lo siguiente:
+
+```{r}
+efc %>% 
+  select(1:5) %>% 
+  head()
+
+```
+
+Sin embargo, si queremos observar las etiquetas de los valores en la misma data podemos utilizar la función `as_label()` del paquete `{sjlabelled}`:
+
+```{r}
+efc %>% 
+  as_label() %>% 
+  select(1:5) %>% 
+  head()
+
+```
+
+Esta función nos será útil en nuestro proceso de construcción de las tablas.
+
+# Tablas básicas
+
+La principal función de R base para hacer tablas es `table()` y nos permite realizar tablas simples de frecuencia. Por ejemplo:
+
+```{r}
+table(as_label(efc$e16sex))
+
+```
+
+Por suerte, actualmente existen paquetes que realizan un mejor trabajo en la construcción de tablas.
+
+# Tablas en HTML
+
+El paquete `{gtsummary}` está basado a su vez en el paquete `{gt}` y nos permite realizar tablas que se renderizan bien en documento HTML, es decir, para la web. Por ejemplo:
+
+```{r, layout="l-body-outset"}
+efc %>% 
+  as_label() %>%
+  gtsummary::tbl_summary(include=e16sex)
+
+```
+
+Como podemos observar, este tipo de tablas nos permite contar con los datos de frecuencia, porcentaje, número total de casos de la base, inclusive cuántos valores perdidos tenemos (en este caso 7). Asimismo, nos permite realizar una tabla cruzada con otra variable.
+
+```{r, layout="l-body-outset"}
+efc %>% 
+  as_label() %>% 
+  gtsummary::tbl_summary(include=e16sex, by=e42dep)
+
+```
+
+La versatilidad de este paquete nos permite insertar una columna de totales y darle un formato específico a los porcentajes:
+
+```{r, layout="l-body-outset"}
+efc %>% 
+  as_label() %>% 
+  gtsummary::tbl_summary(
+    include=e16sex, 
+    by=e42dep,
+    statistic = list(all_categorical() ~ "{p}%"),
+    digits = list(everything() ~ 2)
+    ) %>% 
+  add_overall()
+
+```
+
+# Tablas para Word
+
+Otro aspecto positivo del paquete `{gtsummary}` es que nos permite convertir las tablas HTML en otros formatos más adecuados para documentos PDF y Word como son las tablas del paquete `{flextable}`. De esta manera, podemos realizar una tabla de cruces en `{gtsummary}` y luego convertirla a `{flextable}`:
+
+```{r, layout="l-body-outset"}
+efc %>% 
+  as_label() %>% 
+  gtsummary::tbl_summary(
+    include=e16sex, 
+    by=e42dep,
+    statistic = list(all_categorical() ~ "{p}%"),
+    digits = list(everything() ~ 2)
+    ) %>% 
+  add_overall() %>% 
+  as_flex_table()
+
+```
+
+Por último, el mismo paquete `{flextable}` brinda funciones para generar tablas flextable desde el inicio, antes que convertir las tablas del paquete `{gtsummary}`. Las tablas `{flextable}` tienen sus propias ventajas como, por ejemplo, darle un formato condicional a los colores de la tabla:
+
+```{r}
+efc %>% 
+  as_label() %>% 
+  group_by(e16sex, e42dep) %>% 
+  drop_na() %>% 
+  summarise(n=n()) %>% 
+  group_by(e42dep) %>% 
+  mutate(n=janitor::round_half_up(n/sum(n)*100, 2)) %>% 
+  pivot_wider(values_from = n, names_from = e42dep) %>% 
+  flextable() %>% 
+  bg(i = ~independent > 65,
+     j = 2,
+     bg = "red",
+      part = "body") %>% 
+  bg(i = ~`slightly dependent` > 65,
+     j = 3,
+     bg = "red",
+      part = "body") %>% 
+  bg(i = ~`moderately dependent` > 65,
+     j = 4,
+     bg = "red",
+      part = "body") %>% 
+  bg(i = ~`severely dependent` > 65,
+     j = 5,
+     bg = "red",
+      part = "body")
+
+```
+
+En este ejemplo, le estamos indicando a flextable que si el valor de la celda es mayor a 65% entonces que lo coloree de rojo.
+
+**Más recursos para aprender:**
+
+- [flextable](https://davidgohel.github.io/flextable/index.html)
+
+- [gtsummary](https://www.danieldsjoberg.com/gtsummary/)
+
