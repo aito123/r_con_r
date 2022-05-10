@@ -93,8 +93,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2022-05-09"/>
-  <meta property="article:created" itemprop="dateCreated" content="2022-05-09"/>
+  <meta property="article:published" itemprop="datePublished" content="2022-05-10"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-05-10"/>
   <meta name="article:author" content="Santiago Sotelo"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -113,7 +113,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Exportar reportes en R"]},{"type":"character","attributes":{},"value":["En este artículo aprenderemos a exportar reportes en R en diferentes formatos como HTML, Word y pdf.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","orcid_id","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Santiago Sotelo"]},{"type":"character","attributes":{},"value":["https://santiagosotelo.netlify.app/"]},{"type":"character","attributes":{},"value":["0000-0002-9739-9964"]},{"type":"character","attributes":{},"value":["Q-LAB PUCP"]},{"type":"character","attributes":{},"value":["https://qlab.pucp.edu.pe/"]}]}]},{"type":"character","attributes":{},"value":["2022-05-09"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Exportar reportes en R"]},{"type":"character","attributes":{},"value":["En este artículo aprenderemos a exportar reportes en R en diferentes formatos como HTML, Word y pdf.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","orcid_id","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Santiago Sotelo"]},{"type":"character","attributes":{},"value":["https://santiagosotelo.netlify.app/"]},{"type":"character","attributes":{},"value":["0000-0002-9739-9964"]},{"type":"character","attributes":{},"value":["Q-LAB PUCP"]},{"type":"character","attributes":{},"value":["https://qlab.pucp.edu.pe/"]}]}]},{"type":"character","attributes":{},"value":["2022-05-10"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2061,7 +2061,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Exportar reportes en R","description":"En este artículo aprenderemos a exportar reportes en R en diferentes formatos como HTML, Word y pdf.","authors":[{"author":"Santiago Sotelo","authorURL":"https://santiagosotelo.netlify.app/","affiliation":"Q-LAB PUCP","affiliationURL":"https://qlab.pucp.edu.pe/","orcidID":"0000-0002-9739-9964"}],"publishedDate":"2022-05-09T00:00:00.000-05:00","citationText":"Sotelo, 2022"}
+{"title":"Exportar reportes en R","description":"En este artículo aprenderemos a exportar reportes en R en diferentes formatos como HTML, Word y pdf.","authors":[{"author":"Santiago Sotelo","authorURL":"https://santiagosotelo.netlify.app/","affiliation":"Q-LAB PUCP","affiliationURL":"https://qlab.pucp.edu.pe/","orcidID":"0000-0002-9739-9964"}],"publishedDate":"2022-05-10T00:00:00.000-05:00","citationText":"Sotelo, 2022"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2114,10 +2114,26 @@ class="uri">https://santiagosotelo.netlify.app/</a> (Q-LAB PUCP)<a
 href="https://qlab.pucp.edu.pe/"
 class="uri">https://qlab.pucp.edu.pe/</a>
   
-<br/>2022-05-09
+<br/>2022-05-10
 </div>
 
 <div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#lo-básico-rmarkdown-y-knitr">Lo básico: RMarkdown y
+Knitr</a></li>
+<li><a href="#reportes-en-html">Reportes en HTML</a></li>
+<li><a href="#reportes-en-pdf">Reportes en PDF</a></li>
+<li><a href="#reportes-en-word">Reportes en Word</a>
+<ul>
+<li><a href="#figuras">Figuras</a></li>
+<li><a href="#tablas">Tablas</a></li>
+</ul></li>
+</ul>
+</nav>
+</div>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="figuras/reportes.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
@@ -2142,14 +2158,1128 @@ paquetes:</p>
 </code></pre>
 </div>
 </div>
+<h1 id="lo-básico-rmarkdown-y-knitr">Lo básico: RMarkdown y Knitr</h1>
+<p>Realizar reportes en R nos puede ser de utilidad para cuando
+queremos, por ejemplo, presentar múltiples gráficos y tablas. Resultaría
+un poco tedioso exportar cada gráfico realizado en R en formato
+<code>.png</code> y luego insertarlo en un documento de Word para luego
+presentarlo.</p>
+<p>Asimismo, realizar reportes en R permite una mayor reproducibilidad
+del proceso realizado, lo cual puede ser revisado por otros colegas.</p>
+<p>Dicho esto, empezemos por comprender el proceso de construcción de un
+reporte. Todo reporte se deriva de un archivo RMarkdown. Como su nombre
+lo dice, estos documentos se caracterizan por combinar lenguaje
+<code>R</code> con <code>md</code> (markdown). <a
+href="https://markdown.es/">Markdown</a> es un lenguaje de marcado
+ligero que nos permite realizar cuestiones de formato como
+<strong>negritas</strong>, <em>cursiva</em>,
+<strong><em>cursivaynegrita</em></strong>, con una mayor
+reproducibilidad y legibilidad. <em>Knit</em> es el paquete que nos
+permite convertir un archivo <code>.Rmd</code> a diferentes outputs de
+la siguiente manera:</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="figuras/knit_workflow.png" width="777" style="display: block; margin: auto;" /></p>
+</div>
+<p>Un aspecto característico de los RMarkdown, es el encabezado que
+tiene (<em>YAML header</em>). Es en este espacio en que se define el
+tipo de output que tendrá el archivo <code>.Rmd</code>. Por default
+suele ser un output HTML por lo que comenzaremos con este.</p>
+<h1 id="reportes-en-html">Reportes en HTML</h1>
+<p>Cuando creamos un documento <code>.Rmd</code> desde
+<code>File &lt; New File &lt; R Markdown</code> nos aparece la siguiente
+pestaña:</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="figuras/new_rmd.png" width="80%" style="display: block; margin: auto;" /></p>
+</div>
+<p>Y si le damos “OK” nos creará un <em>YAML header</em> con los
+aspectos básicos necesarios para generar un HTML output:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">&quot;Untitled&quot;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>author<span class="sc">:</span> <span class="st">&quot;Santiago Sotelo&quot;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>date<span class="sc">:</span> <span class="st">&quot;`r Sys.Date()`&quot;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>output<span class="sc">:</span> html_document</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span></code></pre></div>
+</div>
+<p>En este ejemplo, el output está programado para ser un HTML, es
+decir, que se verá como una página continúa sin cortes (no paginado).
+Ahora bien, es importante tomar en cuenta cuál será nuestro output al
+momento de elaborar nuestros gráficos y tablas. Por ejemplo, si mi
+objetivo es generar un reporte en HTML entonces me apoyaré en paquetes
+como <code>{gtsummary}</code> o <code>{DT}</code>para generar tablas
+HTML. Es así como este documento “Exportar reportes en R” se encuentra
+exportado en HTML por lo que renderiza adecuadamente tablas como
+esta:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>trial</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'>tbl_summary</span><span class='op'>(</span>include<span class='op'>=</span><span class='va'>grade</span><span class='op'>)</span>
+</code></pre>
+</div>
+<div id="igihnnmeuo" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#igihnnmeuo .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#igihnnmeuo .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#igihnnmeuo .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#igihnnmeuo .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#igihnnmeuo .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#igihnnmeuo .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#igihnnmeuo .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#igihnnmeuo .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#igihnnmeuo .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#igihnnmeuo .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#igihnnmeuo .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#igihnnmeuo .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#igihnnmeuo .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#igihnnmeuo .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#igihnnmeuo .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#igihnnmeuo .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#igihnnmeuo .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#igihnnmeuo .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#igihnnmeuo .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#igihnnmeuo .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#igihnnmeuo .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#igihnnmeuo .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#igihnnmeuo .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#igihnnmeuo .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#igihnnmeuo .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#igihnnmeuo .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#igihnnmeuo .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#igihnnmeuo .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#igihnnmeuo .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#igihnnmeuo .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#igihnnmeuo .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#igihnnmeuo .gt_left {
+  text-align: left;
+}
+
+#igihnnmeuo .gt_center {
+  text-align: center;
+}
+
+#igihnnmeuo .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#igihnnmeuo .gt_font_normal {
+  font-weight: normal;
+}
+
+#igihnnmeuo .gt_font_bold {
+  font-weight: bold;
+}
+
+#igihnnmeuo .gt_font_italic {
+  font-style: italic;
+}
+
+#igihnnmeuo .gt_super {
+  font-size: 65%;
+}
+
+#igihnnmeuo .gt_two_val_uncert {
+  display: inline-block;
+  line-height: 1em;
+  text-align: right;
+  font-size: 60%;
+  vertical-align: -0.25em;
+  margin-left: 0.1em;
+}
+
+#igihnnmeuo .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#igihnnmeuo .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#igihnnmeuo .gt_slash_mark {
+  font-size: 0.7em;
+  line-height: 0.7em;
+  vertical-align: 0.15em;
+}
+
+#igihnnmeuo .gt_fraction_numerator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: 0.45em;
+}
+
+#igihnnmeuo .gt_fraction_denominator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: -0.05em;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Characteristic</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>N = 200</strong><sup class="gt_footnote_marks">1</sup></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_left">Grade</td>
+<td class="gt_row gt_center"></td></tr>
+    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">I</td>
+<td class="gt_row gt_center">68 (34%)</td></tr>
+    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">II</td>
+<td class="gt_row gt_center">68 (34%)</td></tr>
+    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">III</td>
+<td class="gt_row gt_center">64 (32%)</td></tr>
+  </tbody>
+  
+  <tfoot class="gt_footnotes">
+    <tr>
+      <td class="gt_footnote" colspan="2"><sup class="gt_footnote_marks">1</sup> n (%)</td>
+    </tr>
+  </tfoot>
+</table>
+</div>
+</div>
+<p>Sin embargo, este tipo de tablas no es adecuado para reportes en Word
+o pdf. Por último, si queremos exportar nuestro <code>.Rmd</code> a
+<code>.html</code> clickeamos el botón “Knit” que se encuentra en la
+parte superior de RStudio y esperamos a que aparezca nuestro documento
+HTML.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="figuras/knitr.png" width="80%" style="display: block; margin: auto;" /></p>
+</div>
+<h1 id="reportes-en-pdf">Reportes en PDF</h1>
+<p>Si regresamos al panel para generar reportes en <code>.Rmd</code>
+(<code>File &lt; New File &lt; R Markdown</code>) veremos que también
+nos brinda la posibilidad de elegir un output en PDF:</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="figuras/new_rmd_pdf.png" width="80%" style="display: block; margin: auto;" /></p>
+</div>
+<p>Un aspecto positivo del output PDF es, más allá de ser paginado, es
+decir se puede dividir en páginas numeradas óptimo para un trabajo
+impreso, es que nos permite sacar provecho de los comandos
+<code>LaTeX</code> que es un sistema de composición de textos muy
+familiar para las personas que trabajan en <a
+href="https://es.overleaf.com/">Overleaf</a>.</p>
+<p><code>LaTeX</code> es un universo en sí mismo por lo que cualquier
+interesado puede indagar mayor información en la siguiente <a
+href="https://es.overleaf.com/learn/latex/Commands">página</a>. En esta
+ocasión, utilizaremos los siguientes comandos de <code>LaTeX</code>:</p>
+<ul>
+<li><p><code>\newpage</code> : insertar un salto de página</p></li>
+<li><p><code>\@ref(fig:_)</code> : referenciar una figura como un
+gráfico</p></li>
+<li><p><code>\@ref(tab:_)</code> : referenciar una tabla</p></li>
+</ul>
+<p>Si le damos “OK” a la creación del RMarkdown nos creará un <em>YAML
+header</em> con los aspectos básicos necesarios para generar un HTML
+output:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">&quot;Untitled&quot;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>author<span class="sc">:</span> <span class="st">&quot;Santiago Sotelo&quot;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>date<span class="sc">:</span> <span class="st">&quot;`r Sys.Date()`&quot;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>output<span class="sc">:</span> pdf_document</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span></code></pre></div>
+</div>
+<p>Los comandos de <code>LaTeX</code> nos permiten aprovechar la
+utilidad de los documentos paginados y la referenciación. Por ejemplo,
+<code>\newpage</code> nos permite insertar un salto de página entre dos
+textos y se utiliza de la siguiente manera:</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
+molestie tortor ut tellus dapibus, id viverra purus blandit. Nulla
+consequat magna at fermentum congue. Sed lobortis turpis nec est
+tristique, id auctor justo finibus. Mauris tristique facilisis sem,
+scelerisque dapibus metus tincidunt sit amet.</p>
+<p><code>\newpage</code></p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
+molestie tortor ut tellus dapibus, id viverra purus blandit. Nulla
+consequat magna at fermentum congue. Sed lobortis turpis nec est
+tristique, id auctor justo finibus. Mauris tristique facilisis sem,
+scelerisque dapibus metus tincidunt sit amet.</p>
+<h1 id="reportes-en-word">Reportes en Word</h1>
+<p>Si bien R cuenta con su propio formato output <code>.docx</code>, que
+se denomina <code>word_document</code>, el paquete
+<code>{officedown}</code> nos permite tener mayor versatilidad en la
+edición del documento de Word desde R:</p>
+<p><strong>Setup básico:</strong></p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">&quot;Untitled&quot;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>author<span class="sc">:</span> <span class="st">&quot;Santiago Sotelo&quot;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>date<span class="sc">:</span> <span class="st">&quot;`r Sys.Date()`&quot;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>output<span class="sc">:</span> </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  officedown<span class="sc">::</span>rdocx_document</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span></code></pre></div>
+</div>
+<p>El setup mínimo de un output Word con <code>{officedown}</code>
+precisa el tipo de documento <code>rdocx_document</code>. En cambio, si
+se quiere tener mayor control sobre un documento plantilla, el estilo de
+las tablas, de los gráficos, el tamaño de la hoja y los márgenes se
+puede utilizar este setup avanzado:</p>
+<p><strong>Setup avanzado de Word:</strong></p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">&quot;Untitled&quot;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>author<span class="sc">:</span> <span class="st">&quot;Santiago Sotelo&quot;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>date<span class="sc">:</span> <span class="st">&quot;`r Sys.Date()`&quot;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>output<span class="sc">:</span> </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  officedown<span class="sc">::</span>rdocx_document<span class="sc">:</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    reference_docx<span class="sc">:</span> <span class="st">&quot;Documento/documento_plantilla.docx&quot;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    tables<span class="sc">:</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>      style<span class="sc">:</span> Table</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>      layout<span class="sc">:</span> autofit</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>      width<span class="sc">:</span> <span class="fl">1.0</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>      align<span class="sc">:</span> center</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>      topcaption<span class="sc">:</span> true</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>      caption<span class="sc">:</span> </span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        style<span class="sc">:</span> Table Caption</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        pre<span class="sc">:</span> <span class="st">&quot;Tabla &quot;</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        sep<span class="sc">:</span> <span class="st">&quot;: &quot;</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        tnd<span class="sc">:</span> <span class="dv">0</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        tns<span class="sc">:</span> <span class="st">&#39;-&#39;</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        fp_text<span class="sc">:</span> <span class="sc">!</span>expr officer<span class="sc">::</span><span class="fu">fp_text_lite</span>(<span class="at">bold =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    plots<span class="sc">:</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>      style<span class="sc">:</span> Normal</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>      align<span class="sc">:</span> center</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>      topcaption<span class="sc">:</span> true</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>      caption<span class="sc">:</span> </span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        style<span class="sc">:</span> Image Caption</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        pre<span class="sc">:</span> <span class="st">&quot;Gráfico &quot;</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        sep<span class="sc">:</span> <span class="st">&quot;: &quot;</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>        tnd<span class="sc">:</span> <span class="dv">0</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>        tns<span class="sc">:</span> <span class="st">&#39;-&#39;</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>        fp_text<span class="sc">:</span> <span class="sc">!</span>expr officer<span class="sc">::</span><span class="fu">fp_text_lite</span>(<span class="at">bold =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    page_size<span class="sc">:</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>      width<span class="sc">:</span> <span class="fl">8.3</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>      height<span class="sc">:</span> <span class="fl">11.7</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>      orient<span class="sc">:</span> <span class="st">&quot;portrait&quot;</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span></code></pre></div>
+</div>
+<p>Ahora bien, si queremos utilizar la referenciación en nuestro
+documento podemos realizar los siguientes comandos de
+<code>LaTeX</code>: <code>\@ref(fig:_)</code> y
+<code>\@ref(tab:_)</code>. Estos comandos nos permiten referenciar con
+un número los gráficos y tablas que desplegamos.</p>
+<p>Por ejemplo, si utilizamos la base <code>economics</code> del paquete
+<code>{ggplot2}</code>:</p>
+<h2 id="figuras">Figuras</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>economics</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>unemploy</span> <span class='op'>/</span> <span class='va'>pop</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-12"></span>
+<img src="reportes_files/figure-html5/unnamed-chunk-12-1.png" alt="economics plot" width="624" />
+<p class="caption">
+Figure 1: economics plot
+</p>
+</div>
+</div>
+<p>Esta es una referencia a la gráfico <strong>1</strong> &lt;-
+<code>\@ref(fig:tsplot)</code>.</p>
+<h2 id="tablas">Tablas</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>economics</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'>gt</span><span class='fu'>::</span><span class='fu'><a href='https://gt.rstudio.com/reference/gt.html'>gt</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<div id="umyfjuylwl" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#umyfjuylwl .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#umyfjuylwl .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#umyfjuylwl .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#umyfjuylwl .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#umyfjuylwl .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#umyfjuylwl .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#umyfjuylwl .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#umyfjuylwl .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#umyfjuylwl .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#umyfjuylwl .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#umyfjuylwl .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#umyfjuylwl .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#umyfjuylwl .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#umyfjuylwl .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#umyfjuylwl .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#umyfjuylwl .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#umyfjuylwl .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#umyfjuylwl .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#umyfjuylwl .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#umyfjuylwl .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#umyfjuylwl .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#umyfjuylwl .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#umyfjuylwl .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#umyfjuylwl .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#umyfjuylwl .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#umyfjuylwl .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#umyfjuylwl .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#umyfjuylwl .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#umyfjuylwl .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#umyfjuylwl .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#umyfjuylwl .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#umyfjuylwl .gt_left {
+  text-align: left;
+}
+
+#umyfjuylwl .gt_center {
+  text-align: center;
+}
+
+#umyfjuylwl .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#umyfjuylwl .gt_font_normal {
+  font-weight: normal;
+}
+
+#umyfjuylwl .gt_font_bold {
+  font-weight: bold;
+}
+
+#umyfjuylwl .gt_font_italic {
+  font-style: italic;
+}
+
+#umyfjuylwl .gt_super {
+  font-size: 65%;
+}
+
+#umyfjuylwl .gt_two_val_uncert {
+  display: inline-block;
+  line-height: 1em;
+  text-align: right;
+  font-size: 60%;
+  vertical-align: -0.25em;
+  margin-left: 0.1em;
+}
+
+#umyfjuylwl .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#umyfjuylwl .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#umyfjuylwl .gt_slash_mark {
+  font-size: 0.7em;
+  line-height: 0.7em;
+  vertical-align: 0.15em;
+}
+
+#umyfjuylwl .gt_fraction_numerator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: 0.45em;
+}
+
+#umyfjuylwl .gt_fraction_denominator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: -0.05em;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">date</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">pce</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">pop</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">psavert</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">uempmed</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">unemploy</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_left">1967-07-01</td>
+<td class="gt_row gt_right">506.7</td>
+<td class="gt_row gt_right">198712</td>
+<td class="gt_row gt_right">12.6</td>
+<td class="gt_row gt_right">4.5</td>
+<td class="gt_row gt_right">2944</td></tr>
+    <tr><td class="gt_row gt_left">1967-08-01</td>
+<td class="gt_row gt_right">509.8</td>
+<td class="gt_row gt_right">198911</td>
+<td class="gt_row gt_right">12.6</td>
+<td class="gt_row gt_right">4.7</td>
+<td class="gt_row gt_right">2945</td></tr>
+    <tr><td class="gt_row gt_left">1967-09-01</td>
+<td class="gt_row gt_right">515.6</td>
+<td class="gt_row gt_right">199113</td>
+<td class="gt_row gt_right">11.9</td>
+<td class="gt_row gt_right">4.6</td>
+<td class="gt_row gt_right">2958</td></tr>
+    <tr><td class="gt_row gt_left">1967-10-01</td>
+<td class="gt_row gt_right">512.2</td>
+<td class="gt_row gt_right">199311</td>
+<td class="gt_row gt_right">12.9</td>
+<td class="gt_row gt_right">4.9</td>
+<td class="gt_row gt_right">3143</td></tr>
+    <tr><td class="gt_row gt_left">1967-11-01</td>
+<td class="gt_row gt_right">517.4</td>
+<td class="gt_row gt_right">199498</td>
+<td class="gt_row gt_right">12.8</td>
+<td class="gt_row gt_right">4.7</td>
+<td class="gt_row gt_right">3066</td></tr>
+    <tr><td class="gt_row gt_left">1967-12-01</td>
+<td class="gt_row gt_right">525.1</td>
+<td class="gt_row gt_right">199657</td>
+<td class="gt_row gt_right">11.8</td>
+<td class="gt_row gt_right">4.8</td>
+<td class="gt_row gt_right">3018</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+<p>Esta es una referencia a la tabla <strong>1</strong> &lt;-
+<code>\@ref(tab:mytab)</code>.</p>
 <p><strong>Más recursos para aprender:</strong></p>
 <ul>
+<li><p><a href="https://yihui.org/knitr/">Knitr</a></p></li>
 <li><p><a
 href="https://ardata-fr.github.io/officeverse/officedown-for-word.html">officedown</a></p></li>
 <li><p><a
 href="https://davidgohel.github.io/officer/">officer</a></p></li>
 </ul>
-<div class="sourceCode" id="cb1"><pre
+<div class="sourceCode" id="cb5"><pre
 class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

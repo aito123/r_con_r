@@ -259,14 +259,17 @@ base1 %>%
 
 Al momento de importar y exportar nuestra data, es importante tener en cuenta a qué carpeta se están cargando los archivos. A esta carpeta la llamamos directorio de trabajo o *Working directory*. Para saber cuál es nuestro directory de trabajo por default ejecutamos la siguiente función:
 
-```{r}
+```{r, eval=FALSE}
 getwd()
+# [1] "C:/Users/Lenovo/OneDrive - Universidad del Pacífico/(TRABAJO) QLAB/Capacitación en R/r_con_r"
 ```
 Si queremos cambiar nuestro directorio de trabajo a uno específico realizamos la siguiente función:
 
-```{r}
+```{r, eval=FALSE}
 setwd("C:/Users/Lenovo")
 getwd()
+
+# [1] "C:/Users/Lenovo"
 ```
 **Más recursos para aprender:**
 
