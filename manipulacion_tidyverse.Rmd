@@ -166,9 +166,6 @@ ggplot(df, aes(x = "", y = pcnt, fill = sex)) +
 
 **Grafico de Barras**
 
-Ahora usaremos la base de datos usa.
-
-fill= sex
 
 ```{r}
 ggplot(usa, aes(x = sex, fill = sex)) + #fill=sex : le estamos diciendo a R que 
@@ -177,14 +174,10 @@ ggplot(usa, aes(x = sex, fill = sex)) + #fill=sex : le estamos diciendo a R que
 # geom_text(aes(label=n), vjust = 2, colour = "black")
 ```
 
-Ahora vamos a especificarle a R que color queremos para cada barra
+Ahora vamos a especificarle a R que color queremos para cada barra y usaremos la base de datos creada anteriormnete para practicar 
 
+Con Porcentaje
 ```{r}
-df1<-usa %>%  
-  group_by(sex) %>% 
-  count()
-
-#Porcentaje
 ggplot(df, aes(x = sex , y = n, fill = sex)) + 
   geom_col() +
   scale_fill_manual(values=c("green", "pink")) +
@@ -203,6 +196,8 @@ ggplot(df, aes(x = sex , y = n, fill = sex)) +
 ```
 
 **Histograma**
+
+Usaremos la base de datos Usa porque se usaran otras variables
 
 Usamos la variable ingresos porque con este gráfico representamos las 
 frecuencias por lo cual se usa para graficar variables númericas.

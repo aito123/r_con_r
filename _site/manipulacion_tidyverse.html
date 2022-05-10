@@ -2311,8 +2311,6 @@ hombres.</p>
 <p><img src="manipulacion_tidyverse_files/figure-html5/unnamed-chunk-9-1.png" width="624" /></p>
 </div>
 <p><strong>Grafico de Barras</strong></p>
-<p>Ahora usaremos la base de datos usa.</p>
-<p>fill= sex</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>usa</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>sex</span>, fill <span class='op'>=</span> <span class='va'>sex</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='co'>#fill=sex : le estamos diciendo a R que </span>
@@ -2326,16 +2324,12 @@ hombres.</p>
 </code></pre>
 </div>
 </div>
-<p>Ahora vamos a especificarle a R que color queremos para cada
-barra</p>
+<p>Ahora vamos a especificarle a R que color queremos para cada barra y
+usaremos la base de datos creada anteriormnete para practicar</p>
+Con Porcentaje
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>df1</span><span class='op'>&lt;-</span><span class='va'>usa</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>  
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>sex</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='co'>#Porcentaje</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>sex</span> , y <span class='op'>=</span> <span class='va'>n</span>, fill <span class='op'>=</span> <span class='va'>sex</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>sex</span> , y <span class='op'>=</span> <span class='va'>n</span>, fill <span class='op'>=</span> <span class='va'>sex</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_fill_manual</a></span><span class='op'>(</span>values<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"green"</span>, <span class='st'>"pink"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Cantidad de mujeres y hombres"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
@@ -2357,6 +2351,7 @@ Con frecuencia
 <p><img src="manipulacion_tidyverse_files/figure-html5/unnamed-chunk-12-1.png" width="624" /></p>
 </div>
 <p><strong>Histograma</strong></p>
+<p>Usaremos la base de datos Usa porque se usaran otras variables</p>
 <p>Usamos la variable ingresos porque con este gráfico representamos las
 frecuencias por lo cual se usa para graficar variables númericas.</p>
 <div class="layout-chunk" data-layout="l-body">
