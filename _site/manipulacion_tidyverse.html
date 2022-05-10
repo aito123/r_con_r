@@ -2863,55 +2863,6 @@ con el mismo programa.</p>
 </code></pre>
 </div>
 </div>
-<p><code>spread()</code> : Este comando te permite volver al estado
-anterior.</p>
-<p>Para este ejercicio vamos vamos a crear una columna identificadora
-que se denomina <code>car</code> y que tiene los nombres de las filas.
-Esto lo hacemos para después revertirlo con el comando spread</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>mtcars2</span> <span class='op'>&lt;-</span> <span class='va'>mtcars</span>
-<span class='va'>mtcars2</span><span class='op'>$</span><span class='va'>car</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/rownames.html'>rownames</a></span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>)</span>
-<span class='co'>#mtcars2</span>
-</code></pre>
-</div>
-</div>
-<p>Ahora con la función “gather” emparejamos los valores de las
-variables atributo y valor y qui</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>mtcarsG</span> <span class='op'>&lt;-</span> <span class='va'>mtcars2</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/gather.html'>gather</a></span><span class='op'>(</span><span class='va'>atributo</span>, <span class='va'>valor</span>,<span class='op'>-</span><span class='va'>car</span><span class='op'>)</span><span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>
-<span class='va'>mtcarsG</span>
-</code></pre>
-</div>
-<pre><code>                 car atributo valor
-1          Mazda RX4      mpg  21.0
-2      Mazda RX4 Wag      mpg  21.0
-3         Datsun 710      mpg  22.8
-4     Hornet 4 Drive      mpg  21.4
-5  Hornet Sportabout      mpg  18.7
-6            Valiant      mpg  18.1
-7         Duster 360      mpg  14.3
-8          Merc 240D      mpg  24.4
-9           Merc 230      mpg  22.8
-10          Merc 280      mpg  19.2</code></pre>
-</div>
-<p>y ahora sí podemos revertirlo (gracias a que hay una columna de
-identificadores denomiada car)</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>mtcarsSpread</span> <span class='op'>&lt;-</span> <span class='va'>mtcarsG</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/spread.html'>spread</a></span><span class='op'>(</span>key <span class='op'>=</span> <span class='va'>atributo</span>, value<span class='op'>=</span><span class='va'>valor</span><span class='op'>)</span><span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>mtcarsSpread</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>                car  mpg
-1        Datsun 710 22.8
-2        Duster 360 14.3
-3    Hornet 4 Drive 21.4
-4 Hornet Sportabout 18.7
-5         Mazda RX4 21.0
-6     Mazda RX4 Wag 21.0</code></pre>
-</div>
 <p><code>Separate()</code> : Convierte una única columna en múltiples
 separando los caracteres que componen a la inicial</p>
 <p>Descargamos esta base de datos para el ejercicio. Lo que queremos
@@ -2998,7 +2949,7 @@ Location</p>
 4    Votó     &lt;NA&gt;       NA  Mujer
 5    Votó  1. Baja      -55 Hombre</code></pre>
 </div>
-<div class="sourceCode" id="cb20"><pre
+<div class="sourceCode" id="cb18"><pre
 class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

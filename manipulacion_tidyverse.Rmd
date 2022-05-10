@@ -423,31 +423,6 @@ mtcarsG <- mtcars %>% gather(atributo, valor)
 ```
 
 
-`spread()` : Este comando te permite volver al estado anterior. 
-
-Para este ejercicio vamos vamos a crear una columna identificadora que se denomina `car` y que tiene los nombres de las filas. Esto lo hacemos para después revertirlo con el comando spread
-
-```{r}
-mtcars2 <- mtcars
-mtcars2$car <- rownames(mtcars2)
-#mtcars2
-```
-
-Ahora con la función "gather" emparejamos los valores de las variables atributo y valor y qui
-
-```{r paged.print=TRUE}
-mtcarsG <- mtcars2 %>% gather(atributo, valor,-car)%>% head(10)
-mtcarsG
-```
-
- y ahora sí podemos revertirlo (gracias a que hay una columna de identificadores denomiada car)
- 
-```{r paged.print=TRUE}
-mtcarsSpread <- mtcarsG %>% spread(key = atributo, value=valor)%>% head(10)
-head(mtcarsSpread)
-```
-
-
 `Separate()` : Convierte una única columna en múltiples separando los caracteres que componen a la inicial
 
 Descargamos esta base de datos  para el ejercicio.
