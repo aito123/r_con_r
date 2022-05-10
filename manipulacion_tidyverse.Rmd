@@ -12,9 +12,9 @@ output:
   distill::distill_article:
     toc: true
     toc_depth: 2
-
 ---
-  
+
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -23,45 +23,459 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::include_graphics("figuras/tidyverse.png")
 ```
 
+**¿Que es un paquete?** Un paquete es una colección de funciones y conjunto de datos desarrollados por la comunidad de R. Ayudan a mejorarla funcionalidad del programa, agilizar ciertas tareas y a agregar funciones nuevas.
+
 **¿Que es Tidyverse?**
 
-Tidyverse es una colección de paquetes de R diseñados para el Data Science. Es conocido porque es uno de los más populares gracias a las funciones muy útiles que provee para la manipulación de data.
+Tidyverse es una colección de paquetes de R diseñados para el Data Science. Es conocido porque es uno de los más populares gracias a las funciones muy útiles que provee para la manipulación de data ya que tiene paquetes para cada paso del tratamiento de data y es por ello que nos ayuda a trabajar las bases de datos. Ha sido desarrollo por RSutdio.
 
-**¿Que es un paquete?**
+Es **consistente**: Todos los paquete tienen una misma estructura
+
+Es **Concatenable**: Siempre se pueden unir pequeñas partes
+
+Para importar datos tenemos **readr**, **haven** y **readxl**. Para limpiar los datos usamos **tidyr**, para transofrmar los datos se usa **dplyr**, que lo veremos a continuación, para modelar se usa **purr** o **broom**, para visualizar se usa **ggplot2**. Finalmente, para comunicar se usa **knitr** para publicar los resultados por html, pdf, ppt. y rmarkdown es la estructura de knitr.
 
 ```{r, eval=TRUE, echo=FALSE, out.width='70%', fig.align='center'}
 knitr::include_graphics("figuras/paquetes.png")
 ```
 
-Un paquete es una colección de funciones y conjunto de datos desarrollados por la comunidad de R. Ayudan a mejorarla funcionalidad del programa, agilizar ciertas tareas y a agregar funciones nuevas.
+**¿Como se instala un paquete?** Cuando instalas un paquete estas descargando una serie de funciones con un solo comando. Para instalar un paquete solo tienes que correr el siguiente comando con el nombre del paquete dentro del paréntesis entre comillas.
 
-**¿Como se instala?**
-Para instalar un paquete solo tienes que correr el siguiente comando con el nombre del paquete dentro del paréntesis entre comillas. 
-
-**Recuenden**:Los comandos en R tienen que estar con los espacios, comas, comillas, parentesis y puntos de una cierta forma exacta, sino el comando no correra! Es recomendable correr el comando en la consola porque solo se tiene que descargar una vez por lo cual si dejas el comando en tu script se volveria a correr.
-  
 `install.packages("tidyverse")`
 
+**Por ejemplo:**:Puedes descargar solo el paquete "ggplot2" usando los comandos indicados anteriormente ("install.packages("ggplot2")). Sin embargo; si ya descargaste "tidyverse", ya descargaste ggplot2 también.
 
-Una vez instalado el paquete , abre la libreria con el siguiente comando. Esto se repite con todos los paquetes que quieras instalar y abrir. Puedes ya tener el paquete descargado pero si no lo abres con el comando `library` no podras utilizar las funciones.
+**Recuenden**:Los comandos en R tienen que estar con los espacios, comas, comillas, paréntesis y puntos dexactamente de cierta forma , sino el comando no correrá! Es recomendable correr este comando en la consola porque solo se tiene que descargar un paquete una vez por lo cual si dejas el comando en tu script se podría volver a correr.
+
+**Abrir el paquete**
+
+Una vez instalado el paquete , ábrelo con el siguiente comando.
 
 ```{r}
 library(tidyverse)
 ```
 
+Esto se repite con todos los paquetes que quieras instalar y abrir. Puedes ya tener el paquete descargado pero si no lo abres con este comando, no podrás utilizar las funciones.Ya que tidyverse es un conjunto de paquetes, si lo abres estas abriendo todos los paquetes que este incluye. **Otra opción** es abrir solo el o los paquetes que necesitas usar ya que abrir el paquete de tidyverse a veces demora un poco debido a que son varios paquetes.
 
-# Principales paquetes
+```{r}
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(purrr)
+library(knitr)
+```
 
-**ggplot2**
+#Descargamos la Data
 
-**dplyr**
+A continuación descargaremos la siguiente data para utilizar las principales funciones dentro de Tidyverse y las más útiles para nuestro trabajo en el Laboratorio.
+
+
+```{r warning=FALSE}
+#Esta librería sirve para abrir bases de datos que estan en formato SAS, SPSS, Stata, Systat, Weka
+
+library(foreign)
+usa <- read.spss("usa.sav",
+          use.value.labels = T, 
+          to.data.frame=TRUE)
+
+```
+
+Siempre es bueno ver la base de datos y analizar su estructura; con los siguientes comandos pueden hacerlo :
+
+*Ver la estructura de bases de datos, el tipo de variables* : `str(usa)`
+
+*Ver base de datos* : `View(usa)`
+
+*Ver los nombres de las variables* : `names(usa)`
+
+**Nota**:Para ver la Base de datos también puedes buscarla en tu environment y darle click.
+
+##Principales Paquetes y funciones
+
+#ggplot2
+
+Este paquete sirve para crear gráficos basados en la data seleccionada. También se le puede indicar una serie de parámetros como el color y tipo de letra, los títulos de los gráficos y más características que se indican con los comando.
+
+**Grafico Pie** :
+
+*Pasos previos*:
+
+*1* Formateo la variable como categórica.
+
+*2***Acuerdense** de revisar en el diccionario de datos o en la misma base de datos,si es que posible verificarlo desde ahi, **COMO** esta formateada la variable.
+
+**Por ejemplo** en este caso tendríamos que confirmar que representa 1 y que representa 2 pero en esta base de datos los niveles ya están etiquetados.
+
+```{r}
+usa$sex=as.factor(usa$sex)
+levels(usa$sex)<-c("Hombre","Mujer")
+str(usa$sex)
+levels(usa$sex)
+table(usa$sex)
+```
+
+*4* Creamos un dataframe con la variable que usaremos para el gráfico, esto lo hacemos porque para los gráficos que haremos al principio, no necesitamos que se representen todas las observaciones como puntos sino que veremos más los porcentajes y la frecuencia de cada categoría de la variable. Hay varias formas de hacer lo mismo, esta es la que hemos elegido para esta capacitación para practicar las funciones del dplyr.
+
+*Ojo* usamos `%>%` como un "conector" , es útil pensarlo como un " y luego". También usamos las funciones de dyplr.
+
+```{r}
+
+df<-usa %>%  #creamos un dataframe llamado "df"
+  group_by(sex) %>% #Agrupamos los datos por la variable "sex"
+  count() %>% #Contamos la frecuencia de las categorias de sex, es decir, Hombre-Mujer en esta base de datos 
+  ungroup() %>% #Desgrupamos la data para que no afecté el siguiente paso
+  mutate(pcnt = n / sum(n)) %>% #Usamos mutate para crear la variable pcnt en la cual vamos a dividir n(cantidad de observaciones en cada categoría)/ la suma total de observaciones de la muestra
+  arrange(pcnt) %>% #ordenamos la variable creada de menor a mayor
+  mutate(etiquetas = scales::percent(pcnt)) #creamos otra variable llamada etiqueta en donde generamos los porcentajes de cada categoria según la cantidad de observaciones en cada una.
+```
+
+**Nota**: En este [Link](https://htmlcolorcodes.com/es/) encontramos todos los colores de R, sus codigos y nombres.
+
+*Creamos el gráfico*
+
+```{r}
+ggplot(df, aes(x = "", y = pcnt, fill = sex)) +
+  geom_col(color = "black") + #para los bordes
+  geom_label(aes(label = n), color = c("black", "black"),
+            position = position_stack(vjust = 0.5),
+            show.legend = FALSE) + #geom_label es para las etiquetas
+  guides(fill = guide_legend(title = "sexo")) + #para la leyenda y el título
+  scale_fill_manual(values = c("#CEFF33", "lightblue")) + #para ponerle color al grafico
+  coord_polar(theta = "y") + #para convertir la barra en circulo
+  theme_void() #el tema, este borra todo lo que esta alrededor del grafico, hay otros que lo ponen en un cuadrado o indican el centro exacto etc.
+   
+```
+
+*Generamos el mismo gráfico pero con porcentajes*
+
+Para ello ponemos la variable "etiquetas" que creamos al principio dentro del comando geom_label(que se encarga de las etiquetas). Con esto le estamos diciendo a R que ponga en las etiquetas el valor de la variable etiqueta en cada caso; es decir, el valor de la variable etiqueta en el caso de las mujeres y en el caso de los hombres. Debido a la formula de n/sum(n), nos dara el porcentaje de cantidad de mujeres y hombres.
+
+```{r}
+
+ggplot(df, aes(x = "", y = pcnt, fill = sex)) +
+  geom_col(color = "black") + 
+  geom_label(aes(label = etiquetas), color = c("black", "black"),
+            position = position_stack(vjust = 0.5),
+            show.legend = FALSE) + 
+  guides(fill = guide_legend(title = "sexo")) +
+  scale_fill_manual(values = c("#CEFF33", "lightblue")) +
+  coord_polar(theta = "y") + 
+  theme_void()
+
+```
+
+**Grafico de Barras**
+
+Ahora usaremos la base de datos usa.
+
+fill= sex
+
+```{r}
+ggplot(usa, aes(x = sex, fill = sex)) + #fill=sex : le estamos diciendo a R que 
+  # rellene las barras según el sexo y automaticamente el R asigna colores
+  geom_bar() 
+# geom_text(aes(label=n), vjust = 2, colour = "black")
+```
+
+Ahora vamos a especificarle a R que color queremos para cada barra
+
+```{r}
+df1<-usa %>%  
+  group_by(sex) %>% 
+  count()
+
+#Porcentaje
+ggplot(df, aes(x = sex , y = n, fill = sex)) + 
+  geom_col() +
+  scale_fill_manual(values=c("green", "pink")) +
+  guides(fill = guide_legend(title = "Cantidad de mujeres y hombres")) +
+  geom_text(aes(label = etiquetas), vjust = 1.5, colour = "black")
+   
+
+```
+ Con frecuencia
+```{r}
+ggplot(df, aes(x = sex , y = n, fill = sex)) + 
+  geom_col() +
+  scale_fill_manual(values=c("green", "pink")) +
+  guides(fill = guide_legend(title = "Cantidad de mujeres y hombres")) +
+  geom_text(aes(label = n), vjust = 1.5, colour = "black")
+```
+
+**Histograma**
+
+Usamos la variable ingresos porque con este gráfico representamos las 
+frecuencias por lo cual se usa para graficar variables númericas.
+
+```{r}
+ggplot(usa,aes(x = ingresos)) +
+  geom_histogram(color = 1, fill = "blue") +
+  ggtitle("Ingresos")
+```
+
+**Boxplot**
+
+*Basico*
+
+```{r}
+ggplot(usa, aes(x = sex, y = ingresos)) + 
+  stat_boxplot(geom = "errorbar",
+               width = 0.15,
+               linetype =2, #tipo de linea
+               color = 1) +
+  geom_boxplot(linetype = 2,
+               lwd = 0.5, #ancho de linea
+               fill = 2, #color de la caja
+               alpha = 0.5, #transparencia
+               color = 1, #color borde
+               outlier.colour =2) + #color atipicos
+  ggtitle ("Ingresos según el sexo")
+```
+
+*Con puntos que representan las observaciones*
+
+```{r}
+ggplot(usa, aes(x = sex, y = ingresos)) + 
+  stat_boxplot(geom = "errorbar",
+               width = 0.15) +
+  geom_boxplot(outlier.shape = NA) +
+  geom_jitter(width = 0.2,colour = 2, shape = 17, size = 1, ) +
+  ggtitle ("Ingresos según el sexo")
+```
+
+*Con diferentes colores de cajas*
+
+```{r}
+ggplot(usa, aes(x = sex, y = ingresos, 
+                colour = sex, 
+                shape = sex)) + 
+  geom_boxplot(outlier.shape = NA) +
+  geom_jitter(width = 0.2,colour = 2 , shape = 17, size = 1, ) +
+  ggtitle ("Ingresos según el sexo")
+```
+
+#dplyr
+
+El paquete dplyr es el más útil en R para la manipulación de datos. Uno de los aportes mas grandes de dplyr es %>% (se genera mediante control shift M).
+
+**Filter** : Filtrar las filas según un criterio específico. Es importante siempre acordarse que als filas son las observaciones y las columnas las variables.
+
+*Ejemplos* : 
+
+Aca estamos filtrando de la data usa las observaciones (personas) que son judios y apoyan el aborto solo en caso de violación. Podemos ver en el resultado que hay 3 filas (rows) y 25 columnas (columns) lo que significa que hay 3 observaciones, en este caso personas, que cumplen con las dos caracteristicas seleccionadas. Las 25 columnas son las 25 variables de la base de datos que estamos usando y nos brindan la infromación de esos 3 casos que han sido *filtrados*.
+
+```{r}
+filter(usa, relig=="Judio", aborto=="2. Solo caso de violacion") 
+```
+En el siguiente ejemplo se esta filtrando a todas las personas de la muestra tengan una edad mayorigual a 80 años que sean mujeres y que opinen que se deba permitir el aborto. R nos indica que hay 8 casos filtrados
+
+```{r}
+filter(usa, sexo=="Mujer", aborto=="4. Permitir", edad>=80)
+```
+Podemos incluir varias variables y filtrar la base de datos con todas las variables que queramos.
+
+**select**: Este comando nos permite seleccionar un subconjunto de variables de la base de datos indicando sus nombres.
+
+*Ejemplo*
+
+Aca estamos seleccionando la variable intecamp y sexo de la base de datos usa y las estamos guardando en un un dataframe
+
+```{r}
+Seleccion<-select(usa, intecamp, sexo)%>% head(10)
+#Seleccion
+```
+Tambien podemos usar este comando para seleccionar todas las variables *menos* algunas.
+
+Por ejemplo aca estamos selecionando todas las variables de la base de datos "usa" *menos* las variables "voto96" y "quien96". Asimismo, guardamos esta selección de variables en un dataframe
+
+```{r paged.print=TRUE}
+# quitando variables
+select(usa, -voto96, -quien96)
+menos96 <- select(usa, -voto96, -quien96) %>% head(10)
+#menos96 
+```
+
+Si van a environment pueden ver todos los datasets, objetos etc que han creado
+
+**summarise** Este comando te permite crear resúmenes de grupos de datos según variables,funciones, medidas de tendencia central, etc. 
+
+*Ejemplo* : 
+En este comando le estamos indicando a R que cree una variable llamada "promgorepost" y que dentro de ella se encuentre el promedio de los valores de la variable "gorepst". En este caso el comando summarise esta resumiendo todos los datos de la variable gorepst y esta calculando el promedio de estos y también esta creando una variable con los datos resumidos.
+
+```{r paged.print=TRUE}
+
+usa$gorepst<- as.numeric(usa$gorepst)
+usa$gorepre<- as.numeric(usa$gorepre)
+
+summarise(usa, promgorepost = mean(gorepst, na.rm = T))
+```
+
+Otro ejemplo:
+
+```{r paged.print=TRUE}
+summarise(usa,media_edad=mean(edad, na.rm=T)) %>% head(10)
+```
+
+**group_by**: Este comando nso sirve para agrupar datos. Agrupa diferentes observaciones de manera que la base de datos original no cambie.
+
+*Ejemplo*: Aca le estamos indicando a R que agrupe la data en base a posición política de los encuestados, además usaremos summarise para sacar el promedio de la aprobación de Bush post gestión.
+
+```{r paged.print=TRUE}
+usa$gbushpst=as.numeric(usa$gbushpst)
+usa.g <- usa%>% 
+  group_by(., consipol) %>% 
+  summarise(mean = mean(gbushpst,na.rm=TRUE), n = n()) %>% head(10)
+
+usa.g
+```
+
+**count**: Con este comando podemos contar los casos en base a una variable.
+
+*Ejemplo*: Le estamos indicando al R que cuente los casos de las personas de acuerdo al nivel educativo
+
+
+```{r paged.print=TRUE}
+count(usa, educ, sort = F)%>% head(10) #con SORT=F estamos diciendo que nos ordene los datos de manera descendente 
+
+```
+
+En este ejemplo le estamos pidiendo a R que agrupe las observaciones de la base de datos "usa" según la variable "consipol" y luego que cuente según el nivel educativo de forma ascendente. 
+
+```{r paged.print=TRUE}
+group_by(usa,consipol) %>% 
+  count(.,educ )%>% head(10)
+```
+
+**mutate** : Este comando te permite crear una nueva variable conservando las ya existentes.
+
+**arrange**: Con este comando podemos ordenar los valores de una variable de forma ascendente o descendente.
+
+*Ejemplo* : En este comando le estamos indicando a R que queremos crear un data frame y que agreguemos a este la variable difgore la cual es la diferencia de las variables "gorepst" y "gorepre". Luego le estamos pidiendo que ordene a la variable gorepst de forma descendente y luego le estamos pidiendo que seleccione las variables "id", "difgore", "gorepre", "gorepst" para mostrar los resultados. 
+
+```{r}
+usagoredesc=mutate(usa, difgore =  gorepst - gorepre) %>%
+  arrange(., desc(gorepst)) %>%
+  select(., id, difgore, gorepre, gorepst)
+
+#View(usagoredesc) Para corroborar que se agregó la variable
+```
+
+De manera ascendente
+
+```{r}
+usagoreasc <- mutate(usa, difgore =  gorepst - gorepre) %>%
+  arrange(.,difgore) %>%
+  select(., id, difgore, gorepre, gorepst)
+#View(usagoreasc)
+```
+
+**Transmute** : Este comando es muy parecido al anterior. La diferencia es que muestra únicamente la nueva variable creada (no se agrega a la base de datos).
+
+*Ejemplos*: Le estamos indicando a R que cree un dataframe llamado "usabush" y que cree una variable llamada "difbush" que sera la diferencia entre la variable "gbushpst" y "gbushppre". Luego que ordene los valores de esta variable de forma descendente. 
+
+```{r}
+usa$gbushpst<- as.numeric(usa$gbushpst)
+usa$gbushpre<- as.numeric(usa$gbushpre)
+
+usabush=transmute(usa, difbush = gbushpst - gbushpre) %>%
+  arrange(., desc(difbush)) 
+#View(usabush)
+
+```
+
+*merge* : Este comando nos eprmite juntar datasets 
+
+`left_join()` : Combinar dos datasets y quedarse con las observaciones de la data de origen. (Tiene # porque al correr el comando , aparece toda la data en la pagina y toma mucho espacio, usetdes copienlo sin el #)
+
+```{r paged.print=TRUE}
+left_join(usagoreasc, usagoredesc , by ='id')%>% head(10)
+```
+
+`right_join()` : Combinar dos datasets y quedarse con las observaciones de destino
+
+```{r paged.print=TRUE}
+right_join(usagoreasc, usa, by = 'id')%>% head(10)
+```
+
+
+y la misma dinámica con los siguientes comandos:
+
+`inner_join()` : Combinar dos datasets y excluir todas las columnas(variables) que no coinciden.
+
+`full_join()` : Combinar dos datasets y quedarse con todas las observaciones, de ambos datasets.
+
 
 **tidyr**
 
+Este paquete tiene como función crear "Tidy data".
 
-#Comandos Útiles
+*¿Que es "Tidy data"?* Tidy data es aquella data en donde cada columna es una variable, cada fila es una observación y cada celda es un solo valor. 
 
-haven
-readxl
-googledrive
+Este paquete fue creado para tener a tu data organizada y limpia y así poder analizarla de la mejor forma usando todas las otras herramientas.
+
+`gather()` :  Este comando te permite emparejar los valores de dos variables en pares.
+
+Para este ejercicio usaremos una base que esta en el mismo R. El mismo programa tiene una serie de paquetes y bases de datos que vienen con el mismo programa. 
+
+```{r}
+mtcarsG <- mtcars %>% gather(atributo, valor)
+#mtcarsG
+```
+
+
+`spread()` : Este comando te permite volver al estado anterior. 
+
+Para este ejercicio vamos vamos a crear una columna identificadora que se denomina `car` y que tiene los nombres de las filas. Esto lo hacemos para después revertirlo con el comando spread
+
+```{r}
+mtcars2 <- mtcars
+mtcars2$car <- rownames(mtcars2)
+#mtcars2
+```
+
+Ahora con la función "gather" emparejamos los valores de las variables atributo y valor y qui
+
+```{r paged.print=TRUE}
+mtcarsG <- mtcars2 %>% gather(atributo, valor,-car)%>% head(10)
+mtcarsG
+```
+
+ y ahora sí podemos revertirlo (gracias a que hay una columna de identificadores denomiada car)
+ 
+```{r paged.print=TRUE}
+mtcarsSpread <- mtcarsG %>% spread(key = atributo, value=valor)%>% head(10)
+head(mtcarsSpread)
+```
+
+
+`Separate()` : Convierte una única columna en múltiples separando los caracteres que componen a la inicial
+
+Descargamos esta base de datos  para el ejercicio.
+Lo que queremos lograr es separar la variable location en "lat" y "long"
+
+Busquen la variable en la base de datos apra que vean como esta codificada.
+
+```{r paged.print=TRUE}
+df3 <- read.table("http://gauss.inf.um.es/datos/longlat.txt", sep=";", head=T)%>% head(10)
+df3
+```
+
+Le quitamos los parentesis a nuestra variable de interes que es Location
+
+```{r paged.print=TRUE}
+df3$Location <- gsub("[()]", "", df3$Location) %>% head(10)
+df3
+```
+
+
+```{r paged.print=TRUE}
+separate(df3, col = Location, into = c("lat","long"), sep = ",")%>% head(10)
+```
+
+
+`unite()` : unir dos variables en una
+```{r paged.print=TRUE}
+unite(usa, nueva_variable, sexo, marital, sep= "_") %>% head(10)
+```
+
 
