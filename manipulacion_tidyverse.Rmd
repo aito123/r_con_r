@@ -474,6 +474,7 @@ separate(df3, col = Location, into = c("lat","long"), sep = ",")%>% head(10)
 
 
 `unite()` : unir dos variables en una
+
 ```{r paged.print=TRUE}
 unite(usa, nueva_variable, sexo, marital, sep= "_") %>% head(5)
 ```
