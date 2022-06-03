@@ -1,0 +1,141 @@
+---
+title: "Limpieza y unión de la data de RENAMU"
+description: |
+  En este artículo veremos cómo limpiar la data de RENAMU en R.
+author:
+  - name: Santiago Sotelo 
+    url: https://santiagosotelo.netlify.app/
+    orcid_id: 0000-0002-9739-9964
+    affiliation: Q-LAB PUCP
+    affiliation_url: https://qlab.pucp.edu.pe/
+date: "`r Sys.Date()`"
+output: 
+  distill::distill_article:
+    toc: true
+    toc_depth: 2
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,eval = FALSE)
+```
+
+```{r, eval=TRUE, echo=FALSE}
+knitr::include_graphics("figuras/rstudio.jpg")
+```
+
+# Setup
+
+```{r}
+#paquetes
+pacman::p_load(here, tidyverse, haven, rio, janitor, glue, sjlabelled)
+
+```
+
+# Importar data
+
+Módulo: Competencias y Funciones de la Municipalidad
+
+```{r}
+#funcion importar desde internet
+descargar_renamu<-function(link){
+  temp <- tempdir()
+
+  tf = tempfile(tmpdir=temp, fileext=".zip")
+  
+  download.file(link, tf)
+  
+  direc<-
+  dirname(
+  unzip(tf, 
+        files=grep('\\.sav$', unzip(tf, list=TRUE, exdir=temp, overwrite=TRUE)$Name, ignore.case=TRUE, value=TRUE), 
+        exdir=temp, 
+        overwrite=TRUE )[1]
+  )
+
+  file.list <- list.files(path = direc,
+                          full.names = TRUE,
+                          pattern='.sav')
+  
+  return(lapply(file.list, read_sav))
+}
+
+#2016-2020
+renamu_m4_2016<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/538-Modulo730.zip")
+renamu_m4_2017<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/594-Modulo730.zip")
+renamu_m4_2018<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/624-Modulo1344.zip")
+renamu_m4_2019<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/656-Modulo1485.zip")
+renamu_m4_2020<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/730-Modulo1590.zip")
+
+
+```
+
+# Limpieza
+
+```{r}
+
+limpieza_data<-function(data){
+  
+  data %>%
+  map(~.x %>%
+        clean_names() %>%
+        {
+          if("idmunici" %in% names(.)) filter(.,!(is.na(idmunici) | 
+                                                idmunici %in% "" | 
+                                                str_detect(idmunici, "Fuente") |
+                                                str_detect(idmunici, ","))) else .
+        }
+  ) %>%
+  reduce(full_join, by=c("idmunici")) #optando por usar de id solo ubigeos
+
+}
+
+renamu<-
+mget(ls(pattern = '^renamu_m4')) %>%
+  map(~.x %>%
+        limpieza_data(.)
+  )
+
+```
+
+
+# Exportar con automatización
+
+Se exportó con automatización.
+
+```{r, warning=FALSE, results='hide',message=FALSE}
+renamu1<- Map(cbind, renamu, data_name=names(renamu))
+
+exportar<-function(data){
+  nombre<-unique(data$data_name)
+  
+  data<-data %>% 
+    select(-data_name)
+    
+  output<-data %>%
+          clean_names() %>% 
+          write_dta(glue("data/{nombre}.dta"), version = 15)# %>% write_sav(glue("data/{nombre}.sav")))
+  
+}
+
+renamu1 %>% 
+  map(~.x %>% 
+        exportar()) %>% invisible()
+
+```
+
+# Observaciones a la data
+
+1. Filas vacías, con comas en el ubigeo y con el texto del pie de data (e.g: Fuente: INEI).
+2. 3 variables con errores ortográficos y de tipeo (catmuni, nom_prov_nom_dist).
+3. Etiquetas salen cortadas por max extensión del dta, lo cual no sucede en el formato .sav siendo un mejor formato para guardar los archivos en .sav
+
+# Comparando las variables
+
+Tabla con la comparativa de variables para identificar variables adicionadas o retiradas.
+
+To Be Continued...
+
+
+
+

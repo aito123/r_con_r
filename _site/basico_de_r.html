@@ -93,8 +93,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2022-05-10"/>
-  <meta property="article:created" itemprop="dateCreated" content="2022-05-10"/>
+  <meta property="article:published" itemprop="datePublished" content="2022-06-03"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-06-03"/>
   <meta name="article:author" content="Santiago Sotelo"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -113,7 +113,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Aspectos básicos de R"]},{"type":"character","attributes":{},"value":["En este artículo aprenderemos algunos aspectos básicos de R.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","orcid_id","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Santiago Sotelo"]},{"type":"character","attributes":{},"value":["https://santiagosotelo.netlify.app/"]},{"type":"character","attributes":{},"value":["0000-0002-9739-9964"]},{"type":"character","attributes":{},"value":["Q-LAB PUCP"]},{"type":"character","attributes":{},"value":["https://qlab.pucp.edu.pe/"]}]}]},{"type":"character","attributes":{},"value":["2022-05-10"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Aspectos básicos de R"]},{"type":"character","attributes":{},"value":["En este artículo aprenderemos algunos aspectos básicos de R.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","orcid_id","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Santiago Sotelo"]},{"type":"character","attributes":{},"value":["https://santiagosotelo.netlify.app/"]},{"type":"character","attributes":{},"value":["0000-0002-9739-9964"]},{"type":"character","attributes":{},"value":["Q-LAB PUCP"]},{"type":"character","attributes":{},"value":["https://qlab.pucp.edu.pe/"]}]}]},{"type":"character","attributes":{},"value":["2022-06-03"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2061,7 +2061,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Aspectos básicos de R","description":"En este artículo aprenderemos algunos aspectos básicos de R.","authors":[{"author":"Santiago Sotelo","authorURL":"https://santiagosotelo.netlify.app/","affiliation":"Q-LAB PUCP","affiliationURL":"https://qlab.pucp.edu.pe/","orcidID":"0000-0002-9739-9964"}],"publishedDate":"2022-05-10T00:00:00.000-05:00","citationText":"Sotelo, 2022"}
+{"title":"Aspectos básicos de R","description":"En este artículo aprenderemos algunos aspectos básicos de R.","authors":[{"author":"Santiago Sotelo","authorURL":"https://santiagosotelo.netlify.app/","affiliation":"Q-LAB PUCP","affiliationURL":"https://qlab.pucp.edu.pe/","orcidID":"0000-0002-9739-9964"}],"publishedDate":"2022-06-03T00:00:00.000-05:00","citationText":"Sotelo, 2022"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2087,6 +2087,7 @@ Sesiones
 <a href="manipulacion_tidyverse.html">Manipulación con Tidyverse</a>
 <a href="tablas.html">Tablas en R</a>
 <a href="reportes.html">Exportar reportes</a>
+<a href="renamu.html">RENAMU limpieza de data</a>
 </div>
 </div>
 <a href="https://github.com/aito123/r_con_r">
@@ -2114,7 +2115,7 @@ class="uri">https://santiagosotelo.netlify.app/</a> (Q-LAB PUCP)<a
 href="https://qlab.pucp.edu.pe/"
 class="uri">https://qlab.pucp.edu.pe/</a>
   
-<br/>2022-05-10
+<br/>2022-06-03
 </div>
 
 <div class="d-article">
@@ -2351,7 +2352,7 @@ valores de otras variables presentes en el dataframe. Por ejemplo:</p>
 <h1 id="estilos-de-programación-en-r">Estilos de programación en R</h1>
 <h2 id="estilo-tradicional">Estilo tradicional</h2>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="figuras/muneca_rusa.jpeg" style="display: block; margin: auto;" /></p>
+<p><img src="figuras/muneca_rusa.jpeg" width="365" style="display: block; margin: auto;" /></p>
 </div>
 <p>En el estilo tradicional de programación en R, se aplican las
 funciones una dentro de otra como si fuera una “muñeca rusa”. Por
@@ -2376,7 +2377,7 @@ resultados en porcentajes decimales, lo que luego multiplicamos por
 100.</p>
 <h2 id="estilo-moderno">Estilo moderno</h2>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="figuras/tuberias.jpg" style="display: block; margin: auto;" /></p>
+<p><img src="figuras/tuberias.jpg" width="334" style="display: block; margin: auto;" /></p>
 </div>
 <p>A diferencia del estilo tradicional de programar en R, actualmente
 existe una tendencia a utilizar el <em>pipe operator</em> introducido en
