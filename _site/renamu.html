@@ -2186,25 +2186,51 @@ variables</a></li>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>limpieza_data</span><span class='op'>&lt;-</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span><span class='op'>{</span>
   
-  <span class='va'>data</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
-  <span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>.x</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
-        <span class='fu'>clean_names</span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+  <span class='va'>data</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>map</span><span class='op'>(</span><span class='op'>~</span><span class='va'>.x</span> <span class='op'>%&gt;%</span>
+        <span class='fu'>clean_names</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
         <span class='op'>{</span>
-          <span class='kw'>if</span><span class='op'>(</span><span class='st'>"idmunici"</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span><span class='op'>)</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>.</span>,<span class='op'>!</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>idmunici</span><span class='op'>)</span> <span class='op'>|</span> 
+          <span class='kw'>if</span><span class='op'>(</span><span class='st'>"idmunici"</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>.</span>,<span class='op'>!</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>idmunici</span><span class='op'>)</span> <span class='op'>|</span> 
                                                 <span class='va'>idmunici</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='st'>""</span> <span class='op'>|</span> 
-                                                <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_detect.html'>str_detect</a></span><span class='op'>(</span><span class='va'>idmunici</span>, <span class='st'>"Fuente"</span><span class='op'>)</span> <span class='op'>|</span>
-                                                <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_detect.html'>str_detect</a></span><span class='op'>(</span><span class='va'>idmunici</span>, <span class='st'>","</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='kw'>else</span> <span class='va'>.</span>
+                                                <span class='fu'>str_detect</span><span class='op'>(</span><span class='va'>idmunici</span>, <span class='st'>"Fuente"</span><span class='op'>)</span> <span class='op'>|</span>
+                                                <span class='fu'>str_detect</span><span class='op'>(</span><span class='va'>idmunici</span>, <span class='st'>","</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='kw'>else</span> <span class='va'>.</span>
         <span class='op'>}</span>
-  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
-  <span class='fu'><a href='https://purrr.tidyverse.org/reference/reduce.html'>reduce</a></span><span class='op'>(</span><span class='va'>full_join</span>, by<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"idmunici"</span><span class='op'>)</span><span class='op'>)</span> <span class='co'>#optando por usar de id solo ubigeos</span>
+  <span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>reduce</span><span class='op'>(</span><span class='va'>full_join</span>, by<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"idmunici"</span>, <span class='st'>"ccdd"</span>, <span class='st'>"ccpp"</span>, <span class='st'>"ccdi"</span><span class='op'>)</span><span class='op'>)</span> <span class='co'>#optando por usar de id solo ubigeos</span>
 
 <span class='op'>}</span>
 
 <span class='va'>renamu</span><span class='op'>&lt;-</span>
-<span class='fu'><a href='https://rdrr.io/r/base/get.html'>mget</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ls.html'>ls</a></span><span class='op'>(</span>pattern <span class='op'>=</span> <span class='st'>'^renamu_m4'</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
-  <span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>.x</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
+<span class='fu'><a href='https://rdrr.io/r/base/get.html'>mget</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ls.html'>ls</a></span><span class='op'>(</span>pattern <span class='op'>=</span> <span class='st'>'^renamu_m4'</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>map</span><span class='op'>(</span><span class='op'>~</span><span class='va'>.x</span> <span class='op'>%&gt;%</span>
         <span class='fu'>limpieza_data</span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span>
   <span class='op'>)</span>
+
+<span class='va'>renamu1</span><span class='op'>&lt;-</span>
+<span class='va'>renamu</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>map</span><span class='op'>(</span><span class='op'>~</span><span class='va'>.x</span> <span class='op'>%&gt;%</span> 
+          <span class='fu'>rename</span><span class='op'>(</span>tipomuni<span class='op'>=</span><span class='va'>catmuni.x</span>,
+                 nom_dpto<span class='op'>=</span><span class='va'>departamento.x</span>,
+                 nom_prov<span class='op'>=</span><span class='va'>provincia.x</span>,
+                 nom_dist<span class='op'>=</span><span class='va'>distrito.x</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+        <span class='op'>{</span>
+        <span class='kw'>if</span><span class='op'>(</span><span class='st'>"p26.x"</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span><span class='op'>)</span> <span class='fu'>rename</span><span class='op'>(</span><span class='va'>.</span>,p26<span class='op'>=</span><span class='va'>p26.x</span><span class='op'>)</span> <span class='kw'>else</span> <span class='va'>.</span>
+        <span class='op'>}</span> <span class='op'>%&gt;%</span>
+        <span class='op'>{</span>
+        <span class='kw'>if</span><span class='op'>(</span><span class='st'>"p30.x"</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span><span class='op'>)</span> <span class='fu'>rename</span><span class='op'>(</span><span class='va'>.</span>,p30<span class='op'>=</span><span class='va'>p30.x</span><span class='op'>)</span> <span class='kw'>else</span> <span class='va'>.</span>
+        <span class='op'>}</span> <span class='op'>%&gt;%</span>
+        <span class='fu'>select</span><span class='op'>(</span><span class='op'>-</span><span class='fu'>starts_with</span><span class='op'>(</span><span class='st'>"catmuni"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+        <span class='fu'>select</span><span class='op'>(</span><span class='op'>-</span><span class='fu'>starts_with</span><span class='op'>(</span><span class='st'>"departamento"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+        <span class='fu'>select</span><span class='op'>(</span><span class='op'>-</span><span class='fu'>starts_with</span><span class='op'>(</span><span class='st'>"provincia"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+        <span class='fu'>select</span><span class='op'>(</span><span class='op'>-</span><span class='fu'>starts_with</span><span class='op'>(</span><span class='st'>"distrito"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+        <span class='fu'>select</span><span class='op'>(</span><span class='op'>-</span><span class='fu'>starts_with</span><span class='op'>(</span><span class='st'>"catmuni"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+        <span class='op'>{</span>
+        <span class='kw'>if</span><span class='op'>(</span><span class='st'>"p26"</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span><span class='op'>)</span> <span class='fu'>select</span><span class='op'>(</span><span class='va'>.</span>, <span class='op'>-</span><span class='fu'>starts_with</span><span class='op'>(</span><span class='st'>"p26"</span><span class='op'>)</span> <span class='op'>&amp;</span> <span class='op'>-</span><span class='fu'>ends_with</span><span class='op'>(</span><span class='st'>"x"</span><span class='op'>)</span>  <span class='op'>|</span> <span class='op'>-</span><span class='fu'>starts_with</span><span class='op'>(</span><span class='st'>"p26"</span><span class='op'>)</span> <span class='op'>&amp;</span> <span class='op'>-</span><span class='fu'>ends_with</span><span class='op'>(</span><span class='st'>"y"</span><span class='op'>)</span><span class='op'>)</span> <span class='kw'>else</span> <span class='va'>.</span>
+        <span class='op'>}</span> <span class='op'>%&gt;%</span>  
+        <span class='op'>{</span>
+        <span class='kw'>if</span><span class='op'>(</span><span class='st'>"p30"</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span><span class='op'>)</span> <span class='fu'>select</span><span class='op'>(</span><span class='va'>.</span>, <span class='op'>-</span><span class='fu'>starts_with</span><span class='op'>(</span><span class='st'>"p30"</span><span class='op'>)</span> <span class='op'>&amp;</span> <span class='op'>-</span><span class='fu'>ends_with</span><span class='op'>(</span><span class='st'>"x"</span><span class='op'>)</span> <span class='op'>|</span> <span class='op'>-</span><span class='fu'>starts_with</span><span class='op'>(</span><span class='st'>"p30"</span><span class='op'>)</span> <span class='op'>&amp;</span> <span class='op'>-</span><span class='fu'>ends_with</span><span class='op'>(</span><span class='st'>"y"</span><span class='op'>)</span><span class='op'>)</span> <span class='kw'>else</span> <span class='va'>.</span>
+        <span class='op'>}</span>
+      <span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2217,18 +2243,18 @@ variables</a></li>
 <span class='va'>exportar</span><span class='op'>&lt;-</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span><span class='op'>{</span>
   <span class='va'>nombre</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>$</span><span class='va'>data_name</span><span class='op'>)</span>
   
-  <span class='va'>data</span><span class='op'>&lt;-</span><span class='va'>data</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>data_name</span><span class='op'>)</span>
+  <span class='va'>data</span><span class='op'>&lt;-</span><span class='va'>data</span> <span class='op'>%&gt;%</span> 
+    <span class='fu'>select</span><span class='op'>(</span><span class='op'>-</span><span class='va'>data_name</span><span class='op'>)</span>
     
-  <span class='va'>output</span><span class='op'>&lt;-</span><span class='va'>data</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
-          <span class='fu'>clean_names</span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='va'>output</span><span class='op'>&lt;-</span><span class='va'>data</span> <span class='op'>%&gt;%</span>
+          <span class='fu'>clean_names</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
           <span class='fu'>write_dta</span><span class='op'>(</span><span class='fu'>glue</span><span class='op'>(</span><span class='st'>"data/{nombre}.dta"</span><span class='op'>)</span>, version <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span><span class='co'># %&gt;% write_sav(glue("data/{nombre}.sav")))</span>
   
 <span class='op'>}</span>
 
-<span class='va'>renamu1</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>.x</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
-        <span class='fu'>exportar</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/invisible.html'>invisible</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>renamu1</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>map</span><span class='op'>(</span><span class='op'>~</span><span class='va'>.x</span> <span class='op'>%&gt;%</span> 
+        <span class='fu'>exportar</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/invisible.html'>invisible</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>

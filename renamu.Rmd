@@ -86,7 +86,7 @@ limpieza_data<-function(data){
                                                 str_detect(idmunici, ","))) else .
         }
   ) %>%
-  reduce(full_join, by=c("idmunici")) #optando por usar de id solo ubigeos
+  reduce(full_join, by=c("idmunici", "ccdd", "ccpp", "ccdi")) #optando por usar de id solo ubigeos
 
 }
 
@@ -95,6 +95,32 @@ mget(ls(pattern = '^renamu_m4')) %>%
   map(~.x %>%
         limpieza_data(.)
   )
+
+renamu1<-
+renamu %>% 
+  map(~.x %>% 
+          rename(tipomuni=catmuni.x,
+                 nom_dpto=departamento.x,
+                 nom_prov=provincia.x,
+                 nom_dist=distrito.x) %>% 
+        {
+        if("p26.x" %in% names(.)) rename(.,p26=p26.x) else .
+        } %>%
+        {
+        if("p30.x" %in% names(.)) rename(.,p30=p30.x) else .
+        } %>%
+        select(-starts_with("catmuni")) %>%
+        select(-starts_with("departamento")) %>%
+        select(-starts_with("provincia")) %>%
+        select(-starts_with("distrito")) %>%
+        select(-starts_with("catmuni")) %>%
+        {
+        if("p26" %in% names(.)) select(., -starts_with("p26") & -ends_with("x")  | -starts_with("p26") & -ends_with("y")) else .
+        } %>%  
+        {
+        if("p30" %in% names(.)) select(., -starts_with("p30") & -ends_with("x") | -starts_with("p30") & -ends_with("y")) else .
+        }
+      )
 
 ```
 
