@@ -2312,8 +2312,6 @@ hombres.</p>
 <p><img src="manipulacion_tidyverse_files/figure-html5/unnamed-chunk-9-1.png" width="624" /></p>
 </div>
 <p><strong>Grafico de Barras</strong></p>
-<p>Ahora usaremos la base de datos usa.</p>
-<p>fill= sex</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>usa</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>sex</span>, fill <span class='op'>=</span> <span class='va'>sex</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='co'>#fill=sex : le estamos diciendo a R que </span>
@@ -2327,16 +2325,12 @@ hombres.</p>
 </code></pre>
 </div>
 </div>
-<p>Ahora vamos a especificarle a R que color queremos para cada
-barra</p>
+<p>Ahora vamos a especificarle a R que color queremos para cada barra y
+usaremos la base de datos creada anteriormnete para practicar</p>
+Con Porcentaje
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>df1</span><span class='op'>&lt;-</span><span class='va'>usa</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>  
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>sex</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='co'>#Porcentaje</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>sex</span> , y <span class='op'>=</span> <span class='va'>n</span>, fill <span class='op'>=</span> <span class='va'>sex</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>sex</span> , y <span class='op'>=</span> <span class='va'>n</span>, fill <span class='op'>=</span> <span class='va'>sex</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_fill_manual</a></span><span class='op'>(</span>values<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"green"</span>, <span class='st'>"pink"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_legend.html'>guide_legend</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Cantidad de mujeres y hombres"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
@@ -2358,6 +2352,7 @@ Con frecuencia
 <p><img src="manipulacion_tidyverse_files/figure-html5/unnamed-chunk-12-1.png" width="624" /></p>
 </div>
 <p><strong>Histograma</strong></p>
+<p>Usaremos la base de datos Usa porque se usaran otras variables</p>
 <p>Usamos la variable ingresos porque con este gráfico representamos las
 frecuencias por lo cual se usa para graficar variables númericas.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2864,55 +2859,6 @@ con el mismo programa.</p>
 </code></pre>
 </div>
 </div>
-<p><code>spread()</code> : Este comando te permite volver al estado
-anterior.</p>
-<p>Para este ejercicio vamos vamos a crear una columna identificadora
-que se denomina <code>car</code> y que tiene los nombres de las filas.
-Esto lo hacemos para después revertirlo con el comando spread</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>mtcars2</span> <span class='op'>&lt;-</span> <span class='va'>mtcars</span>
-<span class='va'>mtcars2</span><span class='op'>$</span><span class='va'>car</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/rownames.html'>rownames</a></span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>)</span>
-<span class='co'>#mtcars2</span>
-</code></pre>
-</div>
-</div>
-<p>Ahora con la función “gather” emparejamos los valores de las
-variables atributo y valor y qui</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>mtcarsG</span> <span class='op'>&lt;-</span> <span class='va'>mtcars2</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/gather.html'>gather</a></span><span class='op'>(</span><span class='va'>atributo</span>, <span class='va'>valor</span>,<span class='op'>-</span><span class='va'>car</span><span class='op'>)</span><span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>
-<span class='va'>mtcarsG</span>
-</code></pre>
-</div>
-<pre><code>                 car atributo valor
-1          Mazda RX4      mpg  21.0
-2      Mazda RX4 Wag      mpg  21.0
-3         Datsun 710      mpg  22.8
-4     Hornet 4 Drive      mpg  21.4
-5  Hornet Sportabout      mpg  18.7
-6            Valiant      mpg  18.1
-7         Duster 360      mpg  14.3
-8          Merc 240D      mpg  24.4
-9           Merc 230      mpg  22.8
-10          Merc 280      mpg  19.2</code></pre>
-</div>
-<p>y ahora sí podemos revertirlo (gracias a que hay una columna de
-identificadores denomiada car)</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>mtcarsSpread</span> <span class='op'>&lt;-</span> <span class='va'>mtcarsG</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/spread.html'>spread</a></span><span class='op'>(</span>key <span class='op'>=</span> <span class='va'>atributo</span>, value<span class='op'>=</span><span class='va'>valor</span><span class='op'>)</span><span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>mtcarsSpread</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>                car  mpg
-1        Datsun 710 22.8
-2        Duster 360 14.3
-3    Hornet 4 Drive 21.4
-4 Hornet Sportabout 18.7
-5         Mazda RX4 21.0
-6     Mazda RX4 Wag 21.0</code></pre>
-</div>
 <p><code>Separate()</code> : Convierte una única columna en múltiples
 separando los caracteres que componen a la inicial</p>
 <p>Descargamos esta base de datos para el ejercicio. Lo que queremos
@@ -2962,7 +2908,7 @@ Location</p>
 5 07/02/2012  802            PD 39.240862  -76.599017
 6 07/02/2012  832            PD  39.27022   -76.63926</code></pre>
 </div>
-<code>unite()</code> : unir dos variables en una
+<p><code>unite()</code> : unir dos variables en una</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://tidyr.tidyverse.org/reference/unite.html'>unite</a></span><span class='op'>(</span><span class='va'>usa</span>, <span class='va'>nueva_variable</span>, <span class='va'>sexo</span>, <span class='va'>marital</span>, sep<span class='op'>=</span> <span class='st'>"_"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>
@@ -2999,7 +2945,7 @@ Location</p>
 4    Votó     &lt;NA&gt;       NA  Mujer
 5    Votó  1. Baja      -55 Hombre</code></pre>
 </div>
-<div class="sourceCode" id="cb20"><pre
+<div class="sourceCode" id="cb18"><pre
 class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
