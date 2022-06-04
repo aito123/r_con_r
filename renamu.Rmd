@@ -17,7 +17,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE,eval = FALSE)
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r, eval=TRUE, echo=FALSE}
@@ -61,11 +61,12 @@ descargar_renamu<-function(link){
 }
 
 #2016-2020
-renamu_m4_2016<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/538-Modulo730.zip")
+renamu_m4_2016<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/538-Modulo730.zip") %>% 
+  map(~.x %>% rename(departamento=nom_dpto,provincia=nom_prov,distrito=nom_dist))
 renamu_m4_2017<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/594-Modulo730.zip")
 renamu_m4_2018<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/624-Modulo1344.zip")
-renamu_m4_2019<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/656-Modulo1485.zip")
-renamu_m4_2020<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/730-Modulo1590.zip")
+renamu_m4_2019<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/656-Modulo1485.zip") %>% map(~.x %>% rename(catmuni=Tipomuni))
+renamu_m4_2020<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/730-Modulo1590.zip") %>% map(~.x %>% rename(catmuni=Tipomuni))
 
 
 ```
@@ -130,7 +131,7 @@ renamu %>%
 Se exportó con automatización.
 
 ```{r, warning=FALSE, results='hide',message=FALSE}
-renamu1<- Map(cbind, renamu, data_name=names(renamu))
+renamu2<- Map(cbind, renamu1, data_name=names(renamu1))
 
 exportar<-function(data){
   nombre<-unique(data$data_name)
@@ -144,7 +145,7 @@ exportar<-function(data){
   
 }
 
-renamu1 %>% 
+renamu2 %>% 
   map(~.x %>% 
         exportar()) %>% invisible()
 
@@ -160,8 +161,223 @@ renamu1 %>%
 
 Tabla con la comparativa de variables para identificar variables adicionadas o retiradas.
 
-To Be Continued...
+```{r}
+renamu2_vars<-
+  renamu2 %>% 
+  #extraer todas las variables
+  map(~.x %>% 
+          select(-data_name) %>% 
+          names()) %>% 
+  flatten_chr() %>% 
+  unique() %>% 
+  as.data.frame() %>% 
+  arrange(1) %>% 
+  rename(variable=1)
 
+tabla_var<-function(data){
+  
+  ano<-data$data_name[1] %>% 
+    as.character() %>% 
+    str_sub(start=-4)
+  
+  data1<-
+    data %>%
+    select(-data_name) %>%
+    names() %>% 
+    as.data.frame() %>% 
+    rename(variable=1) %>% 
+    mutate(var1=1) %>% 
+    rename_with(~case_when(
+           . %in% 'var1' ~ ano,
+           TRUE~.))
+  
+  return(data1)
+}
+
+renamu2 %>% 
+  map(~.x %>% 
+        tabla_var()) %>% 
+  reduce(full_join, by=c("variable")) %>% 
+  right_join(renamu2_vars, by=c("variable")) %>% 
+  mutate(across(where(is.numeric),  ~replace_na(.,0))) %>%
+  DT::datatable()
+  
+
+```
+
+# Importar data
+
+Módulo: Competencias y Funciones de la Municipalidad
+
+```{r}
+#funcion importar desde internet
+descargar_renamu<-function(link){
+  temp <- tempdir()
+
+  tf = tempfile(tmpdir=temp, fileext=".zip")
+  
+  download.file(link, tf)
+  
+  direc<-
+  dirname(
+  unzip(tf, 
+        files=grep('\\.sav$', unzip(tf, list=TRUE, exdir=temp, overwrite=TRUE)$Name, ignore.case=TRUE, value=TRUE), 
+        exdir=temp, 
+        overwrite=TRUE )[1]
+  )
+
+  file.list <- list.files(path = direc,
+                          full.names = TRUE,
+                          pattern='.sav')
+  
+  return(lapply(file.list, read_sav))
+}
+
+#2016-2020
+renamu_m4_2016<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/538-Modulo730.zip") %>% 
+  map(~.x %>% rename(departamento=nom_dpto,provincia=nom_prov,distrito=nom_dist))
+renamu_m4_2017<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/594-Modulo730.zip")
+renamu_m4_2018<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/624-Modulo1344.zip")
+renamu_m4_2019<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/656-Modulo1485.zip") %>% map(~.x %>% rename(catmuni=Tipomuni))
+renamu_m4_2020<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/730-Modulo1590.zip") %>% map(~.x %>% rename(catmuni=Tipomuni))
+
+
+```
+
+# Limpieza
+
+```{r}
+
+limpieza_data<-function(data){
+  
+  data %>%
+  map(~.x %>%
+        clean_names() %>%
+        {
+          if("idmunici" %in% names(.)) filter(.,!(is.na(idmunici) | 
+                                                idmunici %in% "" | 
+                                                str_detect(idmunici, "Fuente") |
+                                                str_detect(idmunici, ","))) else .
+        }
+  ) %>%
+  reduce(full_join, by=c("idmunici", "ccdd", "ccpp", "ccdi")) #optando por usar de id solo ubigeos
+
+}
+
+renamu<-
+mget(ls(pattern = '^renamu_m4')) %>%
+  map(~.x %>%
+        limpieza_data(.)
+  )
+
+renamu1<-
+renamu %>% 
+  map(~.x %>% 
+          rename(tipomuni=catmuni.x,
+                 nom_dpto=departamento.x,
+                 nom_prov=provincia.x,
+                 nom_dist=distrito.x) %>% 
+        {
+        if("p26.x" %in% names(.)) rename(.,p26=p26.x) else .
+        } %>%
+        {
+        if("p30.x" %in% names(.)) rename(.,p30=p30.x) else .
+        } %>%
+        select(-starts_with("catmuni")) %>%
+        select(-starts_with("departamento")) %>%
+        select(-starts_with("provincia")) %>%
+        select(-starts_with("distrito")) %>%
+        select(-starts_with("catmuni")) %>%
+        {
+        if("p26" %in% names(.)) select(., -starts_with("p26") & -ends_with("x")  | -starts_with("p26") & -ends_with("y")) else .
+        } %>%  
+        {
+        if("p30" %in% names(.)) select(., -starts_with("p30") & -ends_with("x") | -starts_with("p30") & -ends_with("y")) else .
+        }
+      )
+
+```
+
+# Exportar con automatización
+
+Se exportó con automatización.
+
+```{r, warning=FALSE, results='hide',message=FALSE}
+renamu2<- Map(cbind, renamu1, data_name=names(renamu1))
+
+exportar<-function(data){
+  nombre<-unique(data$data_name)
+  
+  data<-data %>% 
+    select(-data_name)
+    
+  output<-data %>%
+          clean_names() %>% 
+          write_dta(glue("data/{nombre}.dta"), version = 15)# %>% write_sav(glue("data/{nombre}.sav")))
+  
+}
+
+renamu2 %>% 
+  map(~.x %>% 
+        exportar()) %>% invisible()
+
+```
+
+# Observaciones a la data
+
+1. Filas vacías, con comas en el ubigeo y con el texto del pie de data (e.g: Fuente: INEI).
+2. 3 variables con errores ortográficos y de tipeo (catmuni, nom_prov_nom_dist).
+3. Etiquetas salen cortadas por max extensión del dta, lo cual no sucede en el formato .sav siendo un mejor formato para guardar los archivos en .sav
+
+# Comparando las variables
+
+Tabla con la comparativa de variables para identificar variables adicionadas o retiradas.
+
+```{r}
+renamu2_vars<-
+  renamu2 %>% 
+  #extraer todas las variables
+  map(~.x %>% 
+          select(-data_name) %>% 
+          names()) %>% 
+  flatten_chr() %>% 
+  unique() %>% 
+  as.data.frame() %>% 
+  arrange(1) %>% 
+  rename(variable=1)
+
+tabla_var<-function(data){
+  
+  ano<-data$data_name[1] %>% 
+    as.character() %>% 
+    str_sub(start=-4)
+  
+  data1<-
+    data %>%
+    select(-data_name) %>%
+    names() %>% 
+    as.data.frame() %>% 
+    rename(variable=1) %>% 
+    mutate(var1=1) %>% 
+    rename_with(~case_when(
+           . %in% 'var1' ~ ano,
+           TRUE~.))
+  
+  return(data1)
+}
+
+renamu2 %>% 
+  map(~.x %>% 
+        tabla_var()) %>% 
+  reduce(full_join, by=c("variable")) %>% 
+  right_join(renamu2_vars, by=c("variable")) %>% 
+  mutate(across(where(is.numeric),  ~replace_na(.,0))) %>% #export(here("data/comparacion_variables.xlsx"), asTable=TRUE )
+  DT::datatable(extensions = 'Buttons',
+                options = list(dom = 'Bfrtip',
+                               buttons = c('excel')))
+  
+
+```
 
 
 
