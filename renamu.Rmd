@@ -199,9 +199,7 @@ renamu2 %>%
   reduce(full_join, by=c("variable")) %>% 
   right_join(renamu2_vars, by=c("variable")) %>% 
   mutate(across(where(is.numeric),  ~replace_na(.,0))) %>% #export(here("data/comparacion_variables.xlsx"), asTable=TRUE )
-  DT::datatable(extensions = 'Buttons',
-                options = list(dom = 'Bfrtip',
-                               buttons = c('excel')))
+  DT::datatable()
   
 
 ```
