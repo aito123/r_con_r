@@ -17,7 +17,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, eval=FALSE)
 ```
 
 ```{r, eval=TRUE, echo=FALSE}
@@ -62,11 +62,352 @@ descargar_renamu<-function(link){
 
 #2016-2020
 renamu_m4_2016<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/538-Modulo730.zip") %>% 
-  map(~.x %>% rename(departamento=nom_dpto,provincia=nom_prov,distrito=nom_dist))
-renamu_m4_2017<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/594-Modulo730.zip")
-renamu_m4_2018<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/624-Modulo1344.zip")
-renamu_m4_2019<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/656-Modulo1485.zip") %>% map(~.x %>% rename(catmuni=Tipomuni))
-renamu_m4_2020<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/730-Modulo1590.zip") %>% map(~.x %>% rename(catmuni=Tipomuni))
+  map(~.x %>% 
+        #limpiar nombres
+        clean_names() %>% 
+        #todas las variables que tienen vfi ponerle la misma etiqueta de variable
+        mutate(across(starts_with("vfi_"), ~set_label(., label = "¿Municipalidad informó?"))) %>% 
+        #borrar variable filter si existe.
+        {if ("filter" %in% names(.)) select(., -c(filter)) else .} %>%
+        #cambiar nombre p25 = instru_des
+        rename_with( ~ str_replace(.x, pattern = "p25", replacement = "instru_des"),
+                     matches("p25")) %>% 
+        #p26 = consejo_local
+        rename_with( ~ str_replace(.x, pattern = "p26", replacement = "consejo_local"),
+                     matches("p26")) %>% 
+        #p27 = activid_ej
+        rename_with( ~ str_replace(.x, pattern = "p27", replacement = "activid_ej"),
+                     matches("p27")) %>% 
+        #p28 = catastro
+        rename_with( ~ str_replace(.x, pattern = "p28", replacement = "catastro"),
+                     matches("p28")) %>% 
+        #p29 = presu_resul
+        rename_with( ~ str_replace(.x, pattern = "p29", replacement = "presu_resul"),
+                     matches("p29")) %>% 
+        #p30 = tiene_tupa
+        rename_with( ~ str_replace(.x, pattern = "p30", replacement = "tiene_tupa"),
+                     matches("p30")) %>% 
+        #p31 = ratifica_tupa
+        rename_with( ~ str_replace(.x, pattern = "p31", replacement = "ratifica_tupa"),
+                     matches("p31")) %>% 
+        #p32 = publica_tupa
+        rename_with( ~ str_replace(.x, pattern = "p32", replacement = "publica_tupa"),
+                     matches("p32")) %>% 
+        #p33 = proced_admin
+        rename_with( ~ str_replace(.x, pattern = "p33", replacement = "proced_admin"),
+                     matches("p33")) %>% 
+        #p34 = presu_resul
+        rename_with( ~ str_replace(.x, pattern = "p34", replacement = "canal_atencion"),
+                     matches("p34")) %>% 
+        #p35 = mod_pago
+        rename_with( ~ str_replace(.x, pattern = "p35", replacement = "mod_pago"),
+                     matches("p35")) %>% 
+        #p36 = personal_tribu
+        rename_with( ~ str_replace(.x, pattern = "p36", replacement = "personal_tribu"),
+                     matches("p36")) %>% 
+        #p37 = ej_coactiva
+        rename_with( ~ str_replace(.x, pattern = "p37", replacement = "ej_coactiva"),
+                     matches("p37")) %>% 
+        #p38 = sistema_inf
+        rename_with( ~ str_replace(.x, pattern = "p38", replacement = "sistema_inf"),
+                     matches("p38")) %>% 
+        #p39 = licencia_func
+        rename_with( ~ str_replace(.x, pattern = "p39", replacement = "licencia_func"),
+                     matches("p39")) %>% 
+        #p40 = licencia_urb
+        rename_with( ~ str_replace(.x, pattern = "p40", replacement = "licencia_urb"),
+                     matches("p40")) %>% 
+        #p41 = licencia_edif
+        rename_with( ~ str_replace(.x, pattern = "p41", replacement = "licencia_edif"),
+                     matches("p41")) %>% 
+        #p42 = verifica_obras
+        rename_with( ~ str_replace(.x, pattern = "p42", replacement = "verifica_obras"),
+                     matches("p42")) %>% 
+        #p43 = terrenos_prop
+        rename_with( ~ str_replace(.x, pattern = "p43", replacement = "terrenos_prop"),
+                     matches("p43")) %>% 
+        #p44 = repara_caminos1
+        rename_with( ~ str_replace(.x, pattern = "p44", replacement = "repara_camino1"),
+                     matches("p44")) %>% 
+        rename(
+          #ids
+          departamento=nom_dpto,provincia=nom_prov,distrito=nom_dist
+          )
+      )
+
+renamu_m4_2017<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/594-Modulo730.zip") %>% 
+    map(~.x %>% 
+        #limpiar nombres
+        clean_names() %>% 
+        #todas las variables que tienen vfi ponerle la misma etiqueta de variable
+        mutate(across(starts_with("vfi_"), ~set_label(., label = "¿Municipalidad informó?"))) %>% 
+        #borrar variable filter si existe.
+        {if ("filter" %in% names(.)) select(., -c(filter)) else .} %>%
+        #cambiar nombre p25 = instru_des
+        rename_with( ~ str_replace(.x, pattern = "p25", replacement = "instru_des"),
+                     matches("p25")) %>% 
+        #p26 = consejo_local
+        rename_with( ~ str_replace(.x, pattern = "p26", replacement = "consejo_local"),
+                     matches("p26")) %>% 
+        #p27 = activid_ej
+        rename_with( ~ str_replace(.x, pattern = "p27", replacement = "activid_ej"),
+                     matches("p27")) %>% 
+        #p28 = catastro
+        rename_with( ~ str_replace(.x, pattern = "p28", replacement = "catastro"),
+                     matches("p28")) %>% 
+        #p29 = presu_resul
+        rename_with( ~ str_replace(.x, pattern = "p29", replacement = "presu_resul"),
+                     matches("p29")) %>% 
+        #p30 = tiene_tupa
+        rename_with( ~ str_replace(.x, pattern = "p30", replacement = "tiene_tupa"),
+                     matches("p30")) %>% 
+        #p31 = ratifica_tupa
+        rename_with( ~ str_replace(.x, pattern = "p31", replacement = "ratifica_tupa"),
+                     matches("p31")) %>% 
+        #p32 = publica_tupa
+        rename_with( ~ str_replace(.x, pattern = "p32", replacement = "publica_tupa"),
+                     matches("p32")) %>% 
+        #p33 = proced_admin
+        rename_with( ~ str_replace(.x, pattern = "p33", replacement = "proced_admin"),
+                     matches("p33")) %>% 
+        #p34 = presu_resul
+        rename_with( ~ str_replace(.x, pattern = "p34", replacement = "canal_atencion"),
+                     matches("p34")) %>% 
+        #p35 = mod_pago
+        rename_with( ~ str_replace(.x, pattern = "p35", replacement = "mod_pago"),
+                     matches("p35")) %>% 
+        #p36 = personal_tribu
+        rename_with( ~ str_replace(.x, pattern = "p36", replacement = "personal_tribu"),
+                     matches("p36")) %>% 
+        #p37 = ej_coactiva
+        rename_with( ~ str_replace(.x, pattern = "p37", replacement = "ej_coactiva"),
+                     matches("p37")) %>% 
+        #p38 = sistema_inf
+        rename_with( ~ str_replace(.x, pattern = "p38", replacement = "sistema_inf"),
+                     matches("p38")) %>% 
+        #p39 = licencia_func
+        rename_with( ~ str_replace(.x, pattern = "p39", replacement = "licencia_func"),
+                     matches("p39")) %>% 
+        #p40 = licencia_urb
+        rename_with( ~ str_replace(.x, pattern = "p40", replacement = "licencia_urb"),
+                     matches("p40")) %>% 
+        #p41 = licencia_edif
+        rename_with( ~ str_replace(.x, pattern = "p41", replacement = "licencia_edif"),
+                     matches("p41")) %>% 
+        #p42 = verifica_obras
+        rename_with( ~ str_replace(.x, pattern = "p42", replacement = "verifica_obras"),
+                     matches("p42")) %>% 
+        #p43 = terrenos_prop
+        rename_with( ~ str_replace(.x, pattern = "p43", replacement = "terrenos_prop"),
+                     matches("p43")) %>% 
+        #p44 = repara_caminos1
+        rename_with( ~ str_replace(.x, pattern = "p44", replacement = "repara_camino1"),
+                     matches("p44"))
+      )
+
+renamu_m4_2018<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/624-Modulo1344.zip") %>% 
+      map(~.x %>% 
+        #limpiar nombres
+        clean_names() %>% 
+        #todas las variables que tienen vfi ponerle la misma etiqueta de variable
+        mutate(across(starts_with("vfi_"), ~set_label(., label = "¿Municipalidad informó?"))) %>% 
+        #borrar variable filter si existe.
+        {if ("filter" %in% names(.)) select(., -c(filter)) else .} %>%
+        #cambiar nombre p23 = instru_des
+        rename_with( ~ str_replace(.x, pattern = "p23", replacement = "instru_des"),
+                     matches("p23")) %>% 
+        #p24 = consejo_local
+        rename_with( ~ str_replace(.x, pattern = "p24", replacement = "consejo_local"),
+                     matches("p24")) %>% 
+        #p25 = activid_ej
+        rename_with( ~ str_replace(.x, pattern = "p25", replacement = "activid_ej"),
+                     matches("p25")) %>% 
+        #p26 = presu_resul
+        rename_with( ~ str_replace(.x, pattern = "p26", replacement = "presu_resul"),
+                     matches("p26")) %>% 
+        #p27 = tiene_tupa
+        rename_with( ~ str_replace(.x, pattern = "p27", replacement = "tiene_tupa"),
+                     matches("p27")) %>% 
+        #p28 = ratifica_tupa
+        rename_with( ~ str_replace(.x, pattern = "p28", replacement = "ratifica_tupa"),
+                     matches("p28")) %>% 
+        #p29 = publica_tupa
+        rename_with( ~ str_replace(.x, pattern = "p29", replacement = "publica_tupa"),
+                     matches("p29")) %>% 
+        #p30 = proced_admin
+        rename_with( ~ str_replace(.x, pattern = "p30", replacement = "proced_admin"),
+                     matches("p30")) %>% 
+        #p31 = presu_resul
+        rename_with( ~ str_replace(.x, pattern = "p31", replacement = "canal_atencion"),
+                     matches("p31")) %>% 
+        #p32 = mod_pago
+        rename_with( ~ str_replace(.x, pattern = "p32", replacement = "mod_pago"),
+                     matches("p32")) %>% 
+        #p33 = personal_tribu
+        rename_with( ~ str_replace(.x, pattern = "p33", replacement = "personal_tribu"),
+                     matches("p33")) %>% 
+        #p34 = ej_coactiva
+        rename_with( ~ str_replace(.x, pattern = "p34", replacement = "ej_coactiva"),
+                     matches("p34")) %>% 
+        #p35 = sistema_inf
+        rename_with( ~ str_replace(.x, pattern = "p35", replacement = "sistema_inf"),
+                     matches("p35")) %>% 
+        #p36 = licencia_func
+        rename_with( ~ str_replace(.x, pattern = "p36", replacement = "licencia_func"),
+                     matches("p36")) %>% 
+        #p37 = licencia_urb
+        rename_with( ~ str_replace(.x, pattern = "p37", replacement = "licencia_urb"),
+                     matches("p37")) %>% 
+        #p38 = licencia_edif
+        rename_with( ~ str_replace(.x, pattern = "p38", replacement = "licencia_edif"),
+                     matches("p38")) %>% 
+        #p39 = verifica_obras
+        rename_with( ~ str_replace(.x, pattern = "p39", replacement = "verifica_obras"),
+                     matches("p39")) %>% 
+        #p40 = terrenos_prop
+        rename_with( ~ str_replace(.x, pattern = "p40", replacement = "terrenos_prop"),
+                     matches("p40")) %>% 
+        #p41 = normas_sunarp
+        rename_with( ~ str_replace(.x, pattern = "p41", replacement = "normas_sunarp"),
+                     matches("p41")) %>% 
+        #p42 = repara_caminos1
+        rename_with( ~ str_replace(.x, pattern = "p42", replacement = "repara_camino1"),
+                     matches("p42"))
+      )
+
+renamu_m4_2019<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/656-Modulo1485.zip") %>% 
+  map(~.x %>% 
+        #limpiar nombres
+        clean_names() %>% 
+        #todas las variables que tienen vfi ponerle la misma etiqueta de variable
+        mutate(across(starts_with("vfi_"), ~set_label(., label = "¿Municipalidad informó?"))) %>% 
+        #borrar variable filter si existe.
+        {if ("filter" %in% names(.)) select(., -c(filter)) else .} %>%
+        #cambiar nombre p23 = instru_des
+        rename_with( ~ str_replace(.x, pattern = "p23", replacement = "instru_des"),
+                     matches("p23")) %>% 
+        #p24 = consejo_local
+        rename_with( ~ str_replace(.x, pattern = "p24", replacement = "consejo_local"),
+                     matches("p24")) %>% 
+        #p25 = activid_ej
+        rename_with( ~ str_replace(.x, pattern = "p25", replacement = "activid_ej"),
+                     matches("p25")) %>% 
+        #p26 = tiene_tupa
+        rename_with( ~ str_replace(.x, pattern = "p26", replacement = "tiene_tupa"),
+                     matches("p26")) %>% 
+        #p27 = ratifica_tupa
+        rename_with( ~ str_replace(.x, pattern = "p27", replacement = "ratifica_tupa"),
+                     matches("p27")) %>% 
+        #p28 = publica_tupa
+        rename_with( ~ str_replace(.x, pattern = "p28", replacement = "publica_tupa"),
+                     matches("p28")) %>% 
+        #p29 = proced_admin
+        rename_with( ~ str_replace(.x, pattern = "p29", replacement = "proced_admin"),
+                     matches("p29")) %>% 
+        #p30 = presu_resul
+        rename_with( ~ str_replace(.x, pattern = "p30", replacement = "canal_atencion"),
+                     matches("p30")) %>% 
+        #p31 = mod_pago
+        rename_with( ~ str_replace(.x, pattern = "p31", replacement = "mod_pago"),
+                     matches("p31")) %>% 
+        #p32 = personal_tribu
+        rename_with( ~ str_replace(.x, pattern = "p32", replacement = "personal_tribu"),
+                     matches("p32")) %>% 
+        #p33 = ej_coactiva
+        rename_with( ~ str_replace(.x, pattern = "p33", replacement = "ej_coactiva"),
+                     matches("p33")) %>% 
+        #p34 = licencia_func
+        rename_with( ~ str_replace(.x, pattern = "p34", replacement = "licencia_func"),
+                     matches("p34")) %>% 
+        #p37 = licencia_urb
+        rename_with( ~ str_replace(.x, pattern = "p37", replacement = "licencia_urb"),
+                     matches("p37")) %>% 
+        #p35 = licencia_edif
+        rename_with( ~ str_replace(.x, pattern = "p35", replacement = "licencia_edif"),
+                     matches("p35")) %>% 
+        #p36 = verifica_obras
+        rename_with( ~ str_replace(.x, pattern = "p36", replacement = "verifica_obras"),
+                     matches("p36")) %>% 
+        #p38 = terrenos_prop
+        rename_with( ~ str_replace(.x, pattern = "p38", replacement = "terrenos_prop"),
+                     matches("p38")) %>% 
+        #p39 = normas_sunarp
+        rename_with( ~ str_replace(.x, pattern = "p39", replacement = "normas_sunarp"),
+                     matches("p39")) %>% 
+        #p40a = repara_caminos1
+        rename_with( ~ str_replace(.x, pattern = "p40a", replacement = "repara_camino1"),
+                     matches("p40a")) %>% 
+        #p40b = repara_caminos2
+        rename_with( ~ str_replace(.x, pattern = "p40b", replacement = "repara_camino2"),
+                     matches("p40b")) %>% 
+        rename(
+          #ids
+          catmuni=tipomuni
+          ))
+
+renamu_m4_2020<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descarga/SPSS/730-Modulo1590.zip") %>% 
+  map(~.x %>% 
+        #limpiar nombres
+        clean_names() %>% 
+        #todas las variables que tienen vfi ponerle la misma etiqueta de variable
+        mutate(across(starts_with("vfi_"), ~set_label(., label = "¿Municipalidad informó?"))) %>% 
+        #borrar variable filter si existe.
+        {if ("filter" %in% names(.)) select(., -c(filter)) else .} %>%
+        #cambiar nombre p23 = instru_des
+        rename_with( ~ str_replace(.x, pattern = "p23", replacement = "instru_des"),
+                     matches("p23")) %>% 
+        #p24 = consejo_local
+        rename_with( ~ str_replace(.x, pattern = "p24", replacement = "consejo_local"),
+                     matches("p24")) %>% 
+        #p25 = activid_ej
+        rename_with( ~ str_replace(.x, pattern = "p25", replacement = "activid_ej"),
+                     matches("p25")) %>% 
+        #p26 = tiene_tupa
+        rename_with( ~ str_replace(.x, pattern = "p26", replacement = "tiene_tupa"),
+                     matches("p26")) %>% 
+        #p27 = ratifica_tupa
+        rename_with( ~ str_replace(.x, pattern = "p27", replacement = "ratifica_tupa"),
+                     matches("p27")) %>% 
+        #p28 = publica_tupa
+        rename_with( ~ str_replace(.x, pattern = "p28", replacement = "publica_tupa"),
+                     matches("p28")) %>% 
+        #p29 = proced_admin
+        rename_with( ~ str_replace(.x, pattern = "p29", replacement = "proced_admin"),
+                     matches("p29")) %>% 
+        #p30 = presu_resul
+        rename_with( ~ str_replace(.x, pattern = "p30", replacement = "canal_atencion"),
+                     matches("p30")) %>% 
+        #p31 = mod_pago
+        rename_with( ~ str_replace(.x, pattern = "p31", replacement = "mod_pago"),
+                     matches("p31")) %>% 
+        #p32 = personal_tribu
+        rename_with( ~ str_replace(.x, pattern = "p32", replacement = "personal_tribu"),
+                     matches("p32")) %>% 
+        #p33 = ej_coactiva
+        rename_with( ~ str_replace(.x, pattern = "p33", replacement = "ej_coactiva"),
+                     matches("p33")) %>% 
+        #p34 = licencia_func
+        rename_with( ~ str_replace(.x, pattern = "p34", replacement = "licencia_func"),
+                     matches("p34")) %>% 
+        #p37 = licencia_urb
+        rename_with( ~ str_replace(.x, pattern = "p37", replacement = "licencia_urb"),
+                     matches("p37")) %>% 
+        #p35 = licencia_edif
+        rename_with( ~ str_replace(.x, pattern = "p35", replacement = "licencia_edif"),
+                     matches("p35")) %>% 
+        #p36 = verifica_obras
+        rename_with( ~ str_replace(.x, pattern = "p36", replacement = "verifica_obras"),
+                     matches("p36")) %>% 
+        #p38 = terrenos_prop
+        rename_with( ~ str_replace(.x, pattern = "p38", replacement = "terrenos_prop"),
+                     matches("p38")) %>% 
+        #p39 = normas_sunarp
+        rename_with( ~ str_replace(.x, pattern = "p39", replacement = "normas_sunarp"),
+                     matches("p39")) %>%
+        rename(
+          #ids
+          catmuni=tipomuni
+          ))
 
 
 ```
@@ -75,6 +416,7 @@ renamu_m4_2020<-descargar_renamu("http://iinei.inei.gob.pe/iinei/srienaho/descar
 
 ```{r}
 
+#crear función para rutina de limpieza de las observaciones y hacer "merge"
 limpieza_data<-function(data){
   
   data %>%
@@ -91,12 +433,14 @@ limpieza_data<-function(data){
 
 }
 
+#aplicar rutina de limpieza a elementos que empiezan con renamu_m4
 renamu<-
 mget(ls(pattern = '^renamu_m4')) %>%
   map(~.x %>%
         limpieza_data(.)
   )
 
+#limpieza adicional
 renamu1<-
 renamu %>% 
   map(~.x %>% 
@@ -105,10 +449,10 @@ renamu %>%
                  nom_prov=provincia.x,
                  nom_dist=distrito.x) %>% 
         {
-        if("p26.x" %in% names(.)) rename(.,p26=p26.x) else .
+        if("consejo_local.x" %in% names(.)) rename(.,consejo_local=consejo_local.x) else .
         } %>%
         {
-        if("p30.x" %in% names(.)) rename(.,p30=p30.x) else .
+        if("tiene_tupa.x" %in% names(.)) rename(.,tiene_tupa=tiene_tupa.x) else .
         } %>%
         select(-starts_with("catmuni")) %>%
         select(-starts_with("departamento")) %>%
@@ -116,91 +460,51 @@ renamu %>%
         select(-starts_with("distrito")) %>%
         select(-starts_with("catmuni")) %>%
         {
-        if("p26" %in% names(.)) select(., -starts_with("p26") & -ends_with("x")  | -starts_with("p26") & -ends_with("y")) else .
+        if("consejo_local" %in% names(.)) select(., -starts_with("consejo_local") & -ends_with("x")  | -starts_with("consejo_local") & -ends_with("y")) else .
         } %>%  
         {
-        if("p30" %in% names(.)) select(., -starts_with("p30") & -ends_with("x") | -starts_with("p30") & -ends_with("y")) else .
+        if("tiene_tupa" %in% names(.)) select(., -starts_with("tiene_tupa") & -ends_with("x") | -starts_with("tiene_tupa") & -ends_with("y")) else .
         }
       )
+#ponerle el año
+renamu2<- Map(cbind, renamu1, year=names(renamu1)) %>% map(~.x %>% mutate(year=str_sub(year, start = -4)))
+
+#diccionario de códigos
+diccionarios<- renamu2 %>% map(~.x %>% labelled::look_for(details = TRUE) %>% select(c(variable, label, value_labels, class, range)))
+diccionarios$renamu_m4_2016 %>% as.data.frame() %>% export("renamu_m4_2016_dic1.xlsx")
+diccionarios$renamu_m4_2017 %>% as.data.frame() %>% export("renamu_m4_2017_dic1.xlsx")
+diccionarios$renamu_m4_2018 %>% as.data.frame() %>% export("renamu_m4_2018_dic1.xlsx")
+diccionarios$renamu_m4_2019 %>% as.data.frame() %>% export("renamu_m4_2019_dic1.xlsx")
+diccionarios$renamu_m4_2020 %>% as.data.frame() %>% export("renamu_m4_2020_dic1.xlsx")
+
+# diccionarios %>% map(~.x %>% select(c(variable, label, value_labels, class, range)))) # %>% reduce(full_join, by= "variable") %>% filter(str_detect(variable, "instru_des") | variable %in% "year") %>% View()
 
 ```
+
 
 # Exportar con automatización
 
 Se exportó con automatización.
 
 ```{r, warning=FALSE, results='hide',message=FALSE}
-renamu2<- Map(cbind, renamu1, data_name=names(renamu1))
+
 
 exportar<-function(data){
-  nombre<-unique(data$data_name)
+  nombre<-unique(data$year)
   
   data<-data %>% 
-    select(-data_name)
+    select(-year)
     
   output<-data %>%
           clean_names() %>% 
-          write_dta(glue("data/{nombre}.dta"), version = 15)# %>% write_sav(glue("data/{nombre}.sav")))
+          write_dta(glue("data/renamu_m4_{nombre}.dta"), version = 15)# %>% write_sav(glue("data/{nombre}.sav")))
   
 }
 
 renamu2 %>% 
   map(~.x %>% 
-        exportar()) %>% invisible()
-
-```
-
-# Observaciones a la data
-
-1. Filas vacías, con comas en el ubigeo y con el texto del pie de data (e.g: Fuente: INEI).
-2. 3 variables con errores ortográficos y de tipeo (catmuni, nom_prov_nom_dist).
-3. Etiquetas salen cortadas por max extensión del dta, lo cual no sucede en el formato .sav siendo un mejor formato para guardar los archivos en .sav
-
-# Comparando las variables
-
-Tabla con la comparativa de variables para identificar variables adicionadas o retiradas.
-
-```{r}
-renamu2_vars<-
-  renamu2 %>% 
-  #extraer todas las variables
-  map(~.x %>% 
-          select(-data_name) %>% 
-          names()) %>% 
-  flatten_chr() %>% 
-  unique() %>% 
-  as.data.frame() %>% 
-  arrange(1) %>% 
-  rename(variable=1)
-
-tabla_var<-function(data){
-  
-  ano<-data$data_name[1] %>% 
-    as.character() %>% 
-    str_sub(start=-4)
-  
-  data1<-
-    data %>%
-    select(-data_name) %>%
-    names() %>% 
-    as.data.frame() %>% 
-    rename(variable=1) %>% 
-    mutate(var1=1) %>% 
-    rename_with(~case_when(
-           . %in% 'var1' ~ ano,
-           TRUE~.))
-  
-  return(data1)
-}
-
-renamu2 %>% 
-  map(~.x %>% 
-        tabla_var()) %>% 
-  reduce(full_join, by=c("variable")) %>% 
-  right_join(renamu2_vars, by=c("variable")) %>% 
-  mutate(across(where(is.numeric),  ~replace_na(.,0))) %>% #export(here("data/comparacion_variables.xlsx"), asTable=TRUE )
-  DT::datatable()
-  
+        exportar()) %>% 
+  invisible()
 
 ```
 
