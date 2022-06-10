@@ -460,10 +460,10 @@ renamu %>%
         select(-starts_with("distrito")) %>%
         select(-starts_with("catmuni")) %>%
         {
-        if("consejo_local" %in% names(.)) select(., -starts_with("consejo_local") & -ends_with("x")  | -starts_with("consejo_local") & -ends_with("y")) else .
-        } %>%  
+        if("consejo_local" %in% names(.)) select(., -c(starts_with("consejo_local") & ends_with("y")), -c(starts_with("consejo_local") & ends_with("x"))) else .
+        } %>% 
         {
-        if("tiene_tupa" %in% names(.)) select(., -starts_with("tiene_tupa") & -ends_with("x") | -starts_with("tiene_tupa") & -ends_with("y")) else .
+        if("tiene_tupa" %in% names(.)) select(., -c(starts_with("tiene_tupa") & -ends_with("x")), -c(starts_with("tiene_tupa") & ends_with("y"))) else .
         }
       )
 #ponerle el año
