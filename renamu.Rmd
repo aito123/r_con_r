@@ -471,11 +471,11 @@ renamu2<- Map(cbind, renamu1, year=names(renamu1)) %>% map(~.x %>% mutate(year=s
 
 #diccionario de códigos
 diccionarios<- renamu2 %>% map(~.x %>% labelled::look_for(details = TRUE) %>% select(c(variable, label, value_labels, class, range)))
-diccionarios$renamu_m4_2016 %>% as.data.frame() %>% export("renamu_m4_2016_dic1.xlsx")
-diccionarios$renamu_m4_2017 %>% as.data.frame() %>% export("renamu_m4_2017_dic1.xlsx")
-diccionarios$renamu_m4_2018 %>% as.data.frame() %>% export("renamu_m4_2018_dic1.xlsx")
-diccionarios$renamu_m4_2019 %>% as.data.frame() %>% export("renamu_m4_2019_dic1.xlsx")
-diccionarios$renamu_m4_2020 %>% as.data.frame() %>% export("renamu_m4_2020_dic1.xlsx")
+diccionarios$renamu_m4_2016 %>% as.data.frame() %>% mutate(across(everything(), as.character)) %>% export("renamu_m4_2016_dic1.xlsx")
+diccionarios$renamu_m4_2017 %>% as.data.frame() %>% mutate(across(everything(), as.character)) %>% export("renamu_m4_2017_dic1.xlsx")
+diccionarios$renamu_m4_2018 %>% as.data.frame() %>% mutate(across(everything(), as.character)) %>% export("renamu_m4_2018_dic1.xlsx")
+diccionarios$renamu_m4_2019 %>% as.data.frame() %>% mutate(across(everything(), as.character)) %>% export("renamu_m4_2019_dic1.xlsx")
+diccionarios$renamu_m4_2020 %>% as.data.frame() %>% mutate(across(everything(), as.character)) %>% export("renamu_m4_2020_dic1.xlsx")
 
 # diccionarios %>% map(~.x %>% select(c(variable, label, value_labels, class, range)))) # %>% reduce(full_join, by= "variable") %>% filter(str_detect(variable, "instru_des") | variable %in% "year") %>% View()
 
